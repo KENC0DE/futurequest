@@ -1,18 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .serializers import UserSerializer
-from .serializers import WorkSerializer
-from .serializers import EducationSerializer
-from .serializers import CountrySerializer
-from .models import User
-from .models import Work
-from .models import Country
-from .models import Education
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+from .models import Work, Education, Country, User
+from .serializers import WorkSerializer, EducationSerializer, CountrySerializer, UserSerializer
 
 
 class WorkViewSet(viewsets.ModelViewSet):
@@ -28,3 +17,8 @@ class EducationViewSet(viewsets.ModelViewSet):
 class CountryViewSet(viewsets.ModelViewSet):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
