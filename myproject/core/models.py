@@ -2,6 +2,13 @@ from django.db import models
 from django.core.exceptions import ValidationError
 
 
+from .customs.country import Country
+from .customs.education import Education
+from .customs.user import User
+from .customs.work import Work
+
+
+"""
 class Work(models.Model):
     title = models.CharField(max_length=255)
     country = models.CharField(max_length=255)
@@ -52,3 +59,4 @@ class User(models.Model):
 
     def __str__(self):
         return f"{self.username}: {self.email}"
+"""
