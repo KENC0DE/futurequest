@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Work, Education, Country, User
-from .serializers import WorkSerializer, EducationSerializer, CountrySerializer, UserSerializer
+from .models import Work, Education, User
+from .serializers import WorkSerializer, EducationSerializer, UserSerializer
 
 
 class WorkViewSet(viewsets.ModelViewSet):
@@ -13,11 +13,11 @@ class EducationViewSet(viewsets.ModelViewSet):
     queryset = Education.objects.all()
     serializer_class = EducationSerializer
 
-
+"""
 class CountryViewSet(viewsets.ModelViewSet):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
-
+"""
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
