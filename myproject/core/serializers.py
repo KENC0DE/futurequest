@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Work, Education, User
+from .models import Work, Education, User, ApplicationForm
 
 
 class WorkSerializer(serializers.ModelSerializer):
@@ -23,3 +23,9 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         return user
+
+
+class ApplicationFormSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ApplicationForm
+        fields = '__all__'
