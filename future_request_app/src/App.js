@@ -1,19 +1,25 @@
 import React from 'react';
-import './App.css';
-import Header from './Header';
-import Content from './Content';
-import Products from './Products';
-import VideoSection from './VideoSection';
-import Footer from './Footer';
+import './App.css'
+import Header from './components/Header';
+import Hero from './components/Hero';
+import FeaturedProducts from './components/FeaturedProducts';
+import RecentVideos from './components/RecentVideos';
+import SocialFeed from './components/SocialFeed';
+import Footer from './components/Footer';
 
-const App = () => (
-  <div className="App">
-    <Header />
-    <Content />
-    <Products />
-    <VideoSection />
-    <Footer />
-  </div>
-);
+function App() {
+  return (
+    <div className="App">
+      <Header />
+      <main>
+        <Hero />
+        <FeaturedProducts />
+        <RecentVideos />
+        <SocialFeed />
+      </main>
+      <Footer />
+    </div>
+  );
+}
 
 export default App;
