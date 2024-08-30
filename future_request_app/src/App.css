@@ -12,6 +12,12 @@ body {
   color: #333;
 }
 
+main {
+  position: absolute;
+  width: 100%;
+  margin-top: 5rem;
+}
+
 .App {
   flex-direction: column;
   min-height: 100vh;
@@ -452,15 +458,27 @@ p {
 }
 
 /* profile page */
-/* src/Profile.css */
 .profile-container {
+  display: flex;
+}
+
+.user-profile {
   max-width: 300px;
+  min-width: 250px;
+  height: auto;
+  max-height: 300px;
   margin: 0 auto;
   padding: 20px;
   text-align: center;
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-data {
+  width: 75%;
+  height: 550px;
+  overflow-y: auto;
 }
 
 .profile-avatar {

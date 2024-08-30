@@ -9,21 +9,21 @@ import Footer from './components/Footer';
 import AuthForm from './components/AuthForm';
 import ApplicationForm from './components/ApplicationForm';
 import Profile from './components/Profile';
+import ProductGrid from './components/Products';
 
 function App() {
   return (
     <div className="App">
       <Header />
       <main>
-        <Hero />
-        <FeaturedProducts />
-        <RecentVideos />
+        {/* <Hero /> */}
+        {/* <FeaturedProducts /> */}
+{/*         <RecentVideos />
         <SocialFeed />
-        <AuthForm />
+        <AuthForm /> */}
+        <Profile />
+        {/* <Footer /> */}
       </main>
-      <Footer />
-      <ApplicationForm />
-      <Profile />
     </div>
   );
 }
