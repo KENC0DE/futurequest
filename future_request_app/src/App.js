@@ -6,6 +6,9 @@ import FeaturedProducts from './components/FeaturedProducts';
 import RecentVideos from './components/RecentVideos';
 import SocialFeed from './components/SocialFeed';
 import Footer from './components/Footer';
+import AuthForm from './components/AuthForm';
+import ApplicationForm from './components/ApplicationForm';
+import Profile from './components/Profile';
 
 function App() {
   return (
@@ -16,8 +19,11 @@ function App() {
         <FeaturedProducts />
         <RecentVideos />
         <SocialFeed />
+        <AuthForm />
       </main>
       <Footer />
+      <ApplicationForm />
+      <Profile />
     </div>
   );
 }

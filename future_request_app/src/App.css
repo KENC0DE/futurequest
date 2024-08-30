@@ -13,7 +13,6 @@ body {
 }
 
 .App {
-  display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
@@ -357,4 +356,121 @@ footer {
   .cta-buttons {
     flex-direction: column;
   }
+}
+
+/* AuthForms */
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212;
+}
+
+.auth-container {
+  max-width: 350px;
+  width: 100%;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #1e1e1e;
+  transition: all 0.3s ease;
+}
+
+.auth-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+}
+
+.auth-container h2 {
+  text-align: center;
+  color: #bb86fc;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-input {
+  margin: 10px 0;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #2c2c2c;
+  border: 1px solid #3d3d3d;
+  border-radius: 5px;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: #bb86fc;
+  box-shadow: 0 0 0 2px rgba(187, 134, 252, 0.3);
+}
+
+.auth-button {
+  margin: 20px 0 10px;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #bb86fc;
+  color: #121212;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.auth-button:hover {
+  background-color: #a366e0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(187, 134, 252, 0.3);
+}
+
+.toggle-text {
+  color: #03dac6;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.toggle-text:hover {
+  color: #00fff1;
+  text-shadow: 0 0 8px rgba(3, 218, 198, 0.5);
+}
+
+p {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+/* profile page */
+/* src/Profile.css */
+.profile-container {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.profile-name {
+  font-size: 1.5em;
+  margin-top: 0;
 }

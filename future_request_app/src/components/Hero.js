@@ -8,11 +8,11 @@ function Hero() {
         {/* Add your background video here */}
       </video>
       <div className="hero-content">
-        <h1>QUALITY TECH VIDEOS</h1>
+        <h1>The Main TagLine</h1>
         <div className="cta-buttons">
           <button className="slanted-button mkbhd-merch">
             <FaShoppingBag className="icon" />
-            MKBHD MERCH
+            Products
           </button>
           <button className="slanted-button watch-now">
             <FaYoutube className="icon" />
