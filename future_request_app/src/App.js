@@ -31,6 +31,7 @@ function App() {
                 </>
               }
             />
+            <Route path='/students/1' element={<Profile />} />
             <Route path="/offers" element={<ProductGrid />} />
             <Route path="/login" element={<AuthForm />} />
             <Route path="/profile" element={<Profile />} />

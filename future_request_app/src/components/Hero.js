@@ -1,5 +1,6 @@
 import React from 'react';
-import { FaShoppingBag, FaYoutube, FaSpotify } from "react-icons/fa";
+import { FaShoppingBag, FaYoutube, FaSpotify } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 function Hero() {
   return (
@@ -10,10 +11,13 @@ function Hero() {
       <div className="hero-content">
         <h1>The Main TagLine</h1>
         <div className="cta-buttons">
-          <button className="slanted-button mkbhd-merch">
-            <FaShoppingBag className="icon" />
-            Products
-          </button>
+          <Link to='/offers'>
+            <button className="slanted-button mkbhd-merch">
+              <FaShoppingBag className="icon" />
+              Products
+            </button>
+          </Link>
+
           <button className="slanted-button watch-now">
             <FaYoutube className="icon" />
             WATCH NOW
