@@ -1,26 +1,37 @@
-import React from "react";
-import { FaTwitter, FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { FaTwitter, FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 function Header() {
   return (
     <header>
       <nav>
         <div className="left-nav">
-          <button className="theme-toggle">Theme</button>
+          <button className="theme-toggle">
+            <Link to="/">Theme</Link>
+          </button>
           <div className="social-icons">
-            <a href=""><FaTwitter /></a>
-            <a href=""><FaFacebook /></a>
-            <a href=""><FaInstagram /></a>
-            <a href=""><FaYoutube /></a>
+            <a href="">
+              <FaTwitter />
+            </a>
+            <a href="">
+              <FaFacebook />
+            </a>
+            <a href="">
+              <FaInstagram />
+            </a>
+            <a href="">
+              <FaYoutube />
+            </a>
           </div>
         </div>
         <div className="logo">{/* Add your logo here */}</div>
         <div className="right-nav">
           <ul>
             <li>
-              <a href="#shop">Shop</a>
+              <Link to="/offers">Offers</Link>
             </li>
-            <li>
+            {/*             <li>
               <a href="#brand">Your Brand</a>
             </li>
             <li>
@@ -31,9 +42,11 @@ function Header() {
             </li>
             <li>
               <a href="#custom">Custom Category</a>
-            </li>
+            </li> */}
+            <button className="cart-icon">
+              <Link to="/login">Login</Link>
+            </button>
           </ul>
-          <button className="cart-icon">Cart</button>
         </div>
       </nav>
     </header>
