@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Work, Education, Country, User
+from .models import Work, Education, User, ApplicationForm
+
 
 class WorkSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,13 +14,18 @@ class EducationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class CountrySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Country
-        fields = '__all__'
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        fields = ('email', 'password')
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user
+
+
+class ApplicationFormSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ApplicationForm
         fields = '__all__'
