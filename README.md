@@ -1,5 +1,7 @@
 # FUTURE QUEST
 ## A web site to register students for scholarship
+- To run the server
+```python3 manage.py runserver```
 
 ### Url end-points
 > /api/get-works/
