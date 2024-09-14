@@ -1,28 +1,38 @@
-from .serializers import WorkSerializer, EducationSerializer, UserSerializer, ApplicationFormSerializer
+from rest_framework.authentication import SessionAuthentication
 from .models import Work, Education, User, ApplicationForm
 from rest_framework.exceptions import PermissionDenied
 from rest_framework import viewsets, generics, status
+from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
+from .serializers import (
+    WorkSerializer, EducationSerializer,
+    UserSerializer, ApplicationFormSerializer
+)
 
 
+# full access [ GET, POST, DELETE, PUT]
 class WorkViewSet(viewsets.ModelViewSet):
     queryset = Work.objects.all()
     serializer_class = WorkSerializer
-"""
-    def perform_create(self, serializer):
-        if not self.request.user.is_superuser:
-            raise PermissionDenied("You must be a superuser to perform this action.")
-        serializer.save()"""
+    permission_classes = [IsAdminUser]
+    authentication_classes = [SessionAuthentication]
 
+# only get [ GET ]
+class GetWorks(viewsets.ReadOnlyModelViewSet):
+    queryset = Work.objects.all()
+    serializer_class = WorkSerializer
 
+# full access [ GET, POST, DELETE, PUT]
 class EducationViewSet(viewsets.ModelViewSet):
     queryset = Education.objects.all()
     serializer_class = EducationSerializer
-"""
-    def perform_create(self, serializer):
-        if not self.request.user.is_superuser:
-            raise PermissionDenied("You must be a superuser to perform this action.")
-        serializer.save()"""
+    permission_classes = [IsAdminUser]
+    authentication_classes = [SessionAuthentication]
+
+# only get [ GET ]
+class GetEducations(viewsets.ReadOnlyModelViewSet):
+    queryset = Education.objects.all()
+    serializer_class = EducationSerializer
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
