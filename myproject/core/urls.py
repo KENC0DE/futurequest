@@ -4,7 +4,7 @@ from .views import (
     GetEducations, WorkViewSet,
     EducationViewSet, UserViewSet,
     RegisterView, ApplicationFormViewSet,
-    GetWorks
+    GetWorks,LoginView
 )
 
 router = DefaultRouter()
@@ -18,4 +18,5 @@ router.register(r'get-works', GetWorks, basename='get-works')
 urlpatterns = [
     path('', include(router.urls)),
     path('register/', RegisterView.as_view(), name='register'),
+    path('login/',LoginView.as_view() ,name = 'login'),
 ]

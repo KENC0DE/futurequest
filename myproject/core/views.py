@@ -1,13 +1,17 @@
-from rest_framework.authentication import SessionAuthentication
-from .models import Work, Education, User, ApplicationForm
+from rest_framework.authentication import SessionAuthentication ,TokenAuthentication
+from .models import Work, Education, ApplicationForm
 from rest_framework.exceptions import PermissionDenied
 from rest_framework import viewsets, generics, status
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from .serializers import (
     WorkSerializer, EducationSerializer,
-    UserSerializer, ApplicationFormSerializer
+    UserSerializer, ApplicationFormSerializer,LoginSerializer
 )
+from django.contrib.auth import login
+from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
 
 
 # full access [ GET, POST, DELETE, PUT]
@@ -51,6 +55,20 @@ class RegisterView(generics.CreateAPIView):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
+class LoginView(APIView):
+    serializer_class = LoginSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data = request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data.get('user')
+        login(request, user)
+        token, created = Token.objects.get_or_create(user = user)
+
+        return Response({
+            'token': token.key,
+            'message':'login succesfull!!'
+        })
 
 class ApplicationFormViewSet(viewsets.ModelViewSet):
     queryset = ApplicationForm.objects.all()
