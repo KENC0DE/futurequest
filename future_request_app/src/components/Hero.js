@@ -1,6 +1,6 @@
-import React from 'react';
-import { FaShoppingBag, FaYoutube, FaSpotify } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { FaShoppingBag, FaYoutube, FaSpotify } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
@@ -11,28 +11,15 @@ function Hero() {
       <div className="hero-content">
         <h1>The Main TagLine</h1>
         <div className="cta-buttons">
-          <Link to='/offers'>
+          <Link to="/offers">
             <button className="slanted-button mkbhd-merch">
               <FaShoppingBag className="icon" />
-              Products
+              Education
             </button>
           </Link>
-
-          <button className="slanted-button watch-now">
-            <FaYoutube className="icon" />
-            WATCH NOW
-          </button>
-          <button className="slanted-button the-studio">
-            <FaYoutube className="icon" />
-            THE STUDIO
-          </button>
-          <button className="slanted-button podcast">
-            <FaSpotify className="icon" />
-            PODCAST
-          </button>
           <button className="slanted-button autofocus">
             <FaYoutube className="icon" />
-            AUTOFOCUS
+            Work
           </button>
         </div>
       </div>
