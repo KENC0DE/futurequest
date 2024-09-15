@@ -1,57 +1,35 @@
-from rest_framework.authentication import SessionAuthentication
-from .models import Work, Education, User, ApplicationForm
-from rest_framework.exceptions import PermissionDenied
-from rest_framework import viewsets, generics, status
-from rest_framework.permissions import IsAdminUser
+from django.shortcuts import render
+from django.contrib.auth.models import User
+from rest_framework import generics, permissions
 from rest_framework.response import Response
-from .serializers import (
-    WorkSerializer, EducationSerializer,
-    UserSerializer, ApplicationFormSerializer
-)
-
-
-# full access [ GET, POST, DELETE, PUT]
-class WorkViewSet(viewsets.ModelViewSet):
-    queryset = Work.objects.all()
-    serializer_class = WorkSerializer
-    permission_classes = [IsAdminUser]
-    authentication_classes = [SessionAuthentication]
-
-# only get [ GET ]
-class GetWorks(viewsets.ReadOnlyModelViewSet):
-    queryset = Work.objects.all()
-    serializer_class = WorkSerializer
-
-# full access [ GET, POST, DELETE, PUT]
-class EducationViewSet(viewsets.ModelViewSet):
-    queryset = Education.objects.all()
-    serializer_class = EducationSerializer
-    permission_classes = [IsAdminUser]
-    authentication_classes = [SessionAuthentication]
-
-# only get [ GET ]
-class GetEducations(viewsets.ReadOnlyModelViewSet):
-    queryset = Education.objects.all()
-    serializer_class = EducationSerializer
-
-
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
+from .serializers import UserSerializer
 
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
+    permission_classes = (permissions.AllowAny,)
     serializer_class = UserSerializer
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+
+class LoginView(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
         serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            'user_id': user.pk,
+            'email': user.email
+        })
 
 
-class ApplicationFormViewSet(viewsets.ModelViewSet):
-    queryset = ApplicationForm.objects.all()
-    serializer_class = ApplicationFormSerializer
+class LogoutView(generics.GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        request.user.auth_token.delete()
+        return Response({"message": "Successfully logged out."})
