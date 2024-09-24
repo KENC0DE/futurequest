@@ -9,7 +9,8 @@ import Footer from "./components/Footer";
 import AuthForm from "./components/AuthForm";
 import ApplicationForm from "./components/ApplicationForm";
 import Profile from "./components/Profile";
-import ProductGrid from "./components/Products";
+import Offers from "./components/Offers";
+import OfferDetails from "./components/OfferDetails";
 
 function App() {
   return (
@@ -30,10 +31,11 @@ function App() {
               }
             />
             <Route path="/students/1" element={<Profile />} />
-            <Route path="/offers" element={<ProductGrid />} />
+            <Route path="/offers" element={<Offers />} />
             <Route path="/login" element={<AuthForm />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/apply" element={<ApplicationForm />} />
+            <Route path="/offer-details" element={<OfferDetails />} />
           </Routes>
         </main>
       </Router>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const WorkProducts = [
   {
@@ -102,14 +103,23 @@ const EducationProducts = [
   },
 ];
 
-const ProductGrid = () => {
+const offerClick = (navigate) => {
+  navigate("/offer-details");
+};
+
+const Offers = () => {
+  const navigate = useNavigate();
   return (
     <div className="work-education">
       <div className="product-grid-container">
         <h3 className="education-header">Education</h3>
         <div className="product-grid">
           {EducationProducts.map((product) => (
-            <div key={product.id} className="product-card">
+            <div
+              key={product.id}
+              className="product-card"
+              onClick={() => offerClick(navigate)}
+            >
               <div className="product-image">
                 <img src={product.image} alt={product.name} />
               </div>
@@ -128,7 +138,11 @@ const ProductGrid = () => {
         <h3 className="work-header">Work</h3>
         <div className="product-grid">
           {WorkProducts.map((product) => (
-            <div key={product.id} className="product-card">
+            <div
+              key={product.id}
+              className="product-card"
+              onClick={() => offerClick(navigate)}
+            >
               <div className="product-image">
                 <img src={product.image} alt={product.name} />
               </div>
@@ -144,4 +158,4 @@ const ProductGrid = () => {
   );
 };
 
-export default ProductGrid;
+export default Offers;
