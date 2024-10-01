@@ -43,6 +43,13 @@ class RegisterView(generics.CreateAPIView):
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
+    def get(self, request):
+        user = request.user
+
+        serializer = UserSerializer(user)
+
+        return Response(serializer.data)
+
 
 class UserDetailView(APIView):
     permission_classes = [IsAuthenticated]
