@@ -1,7 +1,5 @@
-from enum import UNIQUE
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
-from django.db.models.functions.text import Length
 
 
 class CustomUserManager(BaseUserManager):
@@ -22,10 +20,10 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
-    username = models.CharField(max_length=50, unique=True)
+    username = None
     email = models.EmailField(unique=True)
 
-    USERNAME_FIELD = 'username'
+    USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
