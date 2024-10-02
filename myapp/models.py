@@ -1,8 +1,31 @@
 from django.db import models
 from django.contrib.auth.models import User
-from .offers import Offers  # Assuming the Offers model is in a file named offers.py
 
 
+# Model for Offers
+class Offers(models.Model):
+    TYPE_CHOICES = [
+        ('WORK', 'Work'),
+        ('EDUCATION', 'Education'),
+    ]
+
+    type = models.CharField(max_length=10, choices=TYPE_CHOICES)
+    title = models.CharField(max_length=255)
+    country = models.CharField(max_length=255)
+    description = models.TextField()
+
+    # Fields specific to Education
+    full_scholarship = models.BooleanField(default=False)
+    ed_level = models.CharField(max_length=255, blank=True, null=True)
+
+    # New fields
+    is_paid = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.title} ({self.get_type_display()})"
+
+
+# New model for ApplicationForm
 class ApplicationForm(models.Model):
     # New fields for User and Offer
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='applications')
