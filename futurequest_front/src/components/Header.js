@@ -1,58 +1,118 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaTwitter, FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 import { useAuth } from "../AuthContext";
 
 function Header() {
   const { user } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <header>
-      <nav>
-        <div className="left-nav">
-          <button className="theme-toggle">
-            <Link to="/">Theme</Link>
-          </button>
-          <div className="social-icons">
-            <a href="">
+    <header className="bg-white shadow">
+      <nav className="flex justify-between items-center p-4">
+        <div className="flex items-center">
+          <Link to="/" className="text-blue-500 mr-4">
+            Future Quest
+          </Link>
+          <div className="hidden md:flex space-x-2">
+            <a
+              href="#"
+              aria-label="Twitter"
+              className="text-gray-600 hover:text-blue-500"
+            >
               <FaTwitter />
             </a>
-            <a href="">
+            <a
+              href="#"
+              aria-label="Facebook"
+              className="text-gray-600 hover:text-blue-500"
+            >
               <FaFacebook />
             </a>
-            <a href="">
+            <a
+              href="#"
+              aria-label="Instagram"
+              className="text-gray-600 hover:text-blue-500"
+            >
               <FaInstagram />
             </a>
-            <a href="">
+            <a
+              href="#"
+              aria-label="YouTube"
+              className="text-gray-600 hover:text-blue-500"
+            >
               <FaYoutube />
             </a>
           </div>
         </div>
-        <div className="logo">{/* Add your logo here */}</div>
-        <div className="right-nav">
-          <ul>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden text-gray-600 focus:outline-none"
+          onClick={toggleMenu}
+          aria-label="Toggle Menu"
+        >
+          {isOpen ? "✖" : "☰"}
+        </button>
+
+        {/* Navigation Links */}
+        <div
+          className={`flex-col md:flex md:flex-row ${
+            isOpen ? "flex" : "hidden"
+          } md:flex`}
+        >
+          <ul className="flex items-center space-x-4">
             <li>
-              <Link to="/offers">Offers</Link>
+              <Link to="/offers" className="text-gray-600 hover:text-blue-500">
+                Offers
+              </Link>
             </li>
             <li>
-              <Link to="/free">Free</Link>
+              <Link to="/free" className="text-gray-600 hover:text-blue-500">
+                Free
+              </Link>
             </li>
             {user ? (
               <>
-                <button className="cart-icon">
-                  <Link to="/profile">Profile</Link>
-                </button>
-                <button className="cart-icon">
-                  <Link to="/logout">Logout</Link>
-                </button>
+                <li>
+                  <Link
+                    to="/profile"
+                    className="text-gray-600 hover:text-blue-500"
+                  >
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/logout"
+                    className="text-gray-600 hover:text-blue-500"
+                  >
+                    Logout
+                  </Link>
+                </li>
               </>
             ) : (
               <>
-                <button className="cart-icon">
-                  <Link to="/login">Login</Link>
-                </button>
-                <button className="cart-icon">
-                  <Link to="/register">Register</Link>
-                </button>
+                <li>
+                  <Link
+                    to="/login"
+                    className="text-gray-600 hover:text-blue-500"
+                  >
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/register"
+                    className="text-gray-600 hover:text-blue-500"
+                  >
+                    Register
+                  </Link>
+                </li>
               </>
             )}
           </ul>

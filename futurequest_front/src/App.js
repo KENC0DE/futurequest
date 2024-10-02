@@ -2,10 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
-import Hero from "./components/Hero";
-import RecentVideos from "./components/RecentVideos";
-import SocialFeed from "./components/SocialFeed";
-import Footer from "./components/Footer";
+import Hero from "./unused/Hero";
+import RecentVideos from "./unused/RecentVideos";
+import SocialFeed from "./unused/SocialFeed";
+import Footer from "./unused/Footer";
 import ApplicationForm from "./components/ApplicationForm";
 import Profile from "./components/Profile";
 import Offers from "./components/Offers";
@@ -18,6 +18,7 @@ import SignUpForm from "./components/SignUpForm";
 import LoginForm from "./components/LoginForm";
 import PrivateRoute from "./PrivateRoute";
 import Logout from "./components/Logout";
+import Home from "./components/Home";
 
 function AppContent() {
   return (
@@ -27,14 +28,7 @@ function AppContent() {
         <Routes>
           <Route
             path="/"
-            element={
-              <>
-                <Hero />
-                <RecentVideos />
-                <SocialFeed />
-                <Footer />
-              </>
-            }
+            element={<Home />}
           />
           <Route element={<PrivateRoute />}>
             <Route path="profile" element={<Profile />} />

@@ -1,0 +1,143 @@
+import React from "react";
+import {
+  FaShoppingBag,
+  FaYoutube,
+  FaTwitter,
+  FaFacebook,
+  FaInstagram,
+  FaYoutube as FaYoutubeIcon,
+} from "react-icons/fa";
+
+function Home() {
+  return (
+    <div className="flex flex-col min-h-screen">
+      {/* Hero Section */}
+      <section className="relative flex items-center justify-center h-screen text-center bg-gray-100">
+        <video
+          autoPlay
+          loop
+          muted
+          className="absolute top-0 left-0 w-full h-full object-cover z-[-1]"
+        >
+          <source src="path/to/your/video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="relative z-10 p-5">
+          <h1 className="text-4xl font-bold text-black mb-8 transform skew[-10deg] md:text-2xl">
+            The Main TagLine
+          </h1>
+          <div className="flex justify-center gap-4">
+            <a href="#education">
+              <button className="slanted-button flex items-center justify-center px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded shadow transform skew[-20deg] transition-transform duration-300">
+                <FaShoppingBag className="mr-2 transform skew[20deg]" />
+                Education
+              </button>
+            </a>
+            <a href="#work">
+              <button className="slanted-button flex items-center justify-center px-4 py-2 text-white bg-gray-800 hover:bg-gray-700 rounded shadow transform skew[-20deg] transition-transform duration-300">
+                <FaYoutube className="mr-2 transform skew[20deg]" />
+                Work
+              </button>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Recent Videos Section */}
+      <section className="recent-content py-16 px-8 bg-gray-200 text-center">
+        <h2 className="text-3xl font-bold mb-8">Recent Videos</h2>
+        <div className="video-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          <div className="bg-white p-4 rounded shadow">
+            <img
+              src="path/to/thumbnail1.jpg"
+              alt="Video Thumbnail"
+              className="w-full h-auto rounded mb-2"
+            />
+            <h3 className="text-lg font-semibold">Video Title 1</h3>
+          </div>
+          <div className="bg-white p-4 rounded shadow">
+            <img
+              src="path/to/thumbnail2.jpg"
+              alt="Video Thumbnail"
+              className="w-full h-auto rounded mb-2"
+            />
+            <h3 className="text-lg font-semibold">Video Title 2</h3>
+          </div>
+          <div className="bg-white p-4 rounded shadow">
+            <img
+              src="path/to/thumbnail3.jpg"
+              alt="Video Thumbnail"
+              className="w-full h-auto rounded mb-2"
+            />
+            <h3 className="text-lg font-semibold">Video Title 3</h3>
+          </div>
+          <div className="bg-white p-4 rounded shadow">
+            <img
+              src="path/to/thumbnail4.jpg"
+              alt="Video Thumbnail"
+              className="w-full h-auto rounded mb-2"
+            />
+            <h3 className="text-lg font-semibold">Video Title 4</h3>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Feed Section */}
+      <section className="social-feed py-16 px-8 text-center bg-gray-100">
+        <h2 className="text-3xl font-bold mb-8">Social Feed</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          <div className="bg-white p-4 rounded shadow">
+            <h3 className="font-semibold">Post Title 1</h3>
+            <p className="text-gray-600">
+              This is a brief description of the post content.
+            </p>
+          </div>
+          <div className="bg-white p-4 rounded shadow">
+            <h3 className="font-semibold">Post Title 2</h3>
+            <p className="text-gray-600">
+              This is a brief description of the post content.
+            </p>
+          </div>
+          <div className="bg-white p-4 rounded shadow">
+            <h3 className="font-semibold">Post Title 3</h3>
+            <p className="text-gray-600">
+              This is a brief description of the post content.
+            </p>
+          </div>
+          <div className="bg-white p-4 rounded shadow">
+            <h3 className="font-semibold">Post Title 4</h3>
+            <p className="text-gray-600">
+              This is a brief description of the post content.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-800 text-white py-8 mt-8">
+        <div className="footer-links flex justify-center gap-8 mb-4">
+          <a href="#contact" className="hover:underline">
+            Contact
+          </a>
+          <a href="#privacy" className="hover:underline">
+            Privacy Policy
+          </a>
+          <a href="#terms" className="hover:underline">
+            Terms of Service
+          </a>
+          <a href="#faq" className="hover:underline">
+            Returns & FAQ
+          </a>
+        </div>
+        <div className="copyright text-center text-sm mb-2">
+          © 2024 Your Brand
+        </div>
+        <div className="powered-by text-center text-sm">
+          Powered by Your Platform
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+export default Home;
