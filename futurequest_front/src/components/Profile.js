@@ -1,5 +1,5 @@
 import React from "react";
-import StudentProfile from "./studentProfile";
+import StudentProfile from "./StudentProfile";
 
 const user = {
   name: "Jane Doe",
@@ -24,22 +24,25 @@ const studentData = {
 
 const handleEdit = () => {
   console.log("Edit button clicked");
-  // Add your edit logic here
 };
 
 const Profile = () => {
   return (
-    <div className="profile-container">
-      <div className="user-profile">
+    <div className="flex justify-center p-4 bg-gray-200">
+      <div className="w-1/4 max-w-xs min-w-[250px] m-auto p-5 text-center bg-white rounded-lg shadow-md">
         <img
-          className="profile-avatar"
+          className="w-36 h-36 rounded-full mx-auto mb-4"
           src={user.avatar}
           alt={`${user.name}'s Avatar`}
         />
-        <h1 className="profile-name">{user.name}</h1>
+        <h1 className="text-xl font-semibold">{user.name}</h1>
       </div>
-      <div className="user-data">
-        <StudentProfile studentData={studentData} showEditButton={true} />
+      <div className="flex-grow max-w-4xl p-10 bg-white shadow-lg border">
+        <StudentProfile
+          studentData={studentData}
+          onEdit={handleEdit}
+          showEditButton={true}
+        />
       </div>
     </div>
   );
