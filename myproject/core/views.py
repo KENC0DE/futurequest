@@ -1,75 +1,49 @@
-from rest_framework.authentication import SessionAuthentication ,TokenAuthentication
-from .models import Work, Education, ApplicationForm
-from rest_framework.exceptions import PermissionDenied
-from rest_framework import viewsets, generics, status
-from rest_framework.permissions import IsAdminUser
+from django.shortcuts import get_object_or_404
+from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from .serializers import (
-    WorkSerializer, EducationSerializer,
-    UserSerializer, ApplicationFormSerializer,LoginSerializer
-)
-from django.contrib.auth import login
-from rest_framework.authtoken.models import Token
-from django.contrib.auth.models import User
+from .models import Offers, ApplicationForm
+from .serializers import OffersSerializer, ApplicationFormSerializer
 
 
-# full access [ GET, POST, DELETE, PUT]
-class WorkViewSet(viewsets.ModelViewSet):
-    queryset = Work.objects.all()
-    serializer_class = WorkSerializer
-    permission_classes = [IsAdminUser]
-    authentication_classes = [SessionAuthentication]
+class OffersViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Offers.objects.all()
+    serializer_class = OffersSerializer
+    permission_classes = [permissions.AllowAny]
 
-# only get [ GET ]
-class GetWorks(viewsets.ReadOnlyModelViewSet):
-    queryset = Work.objects.all()
-    serializer_class = WorkSerializer
+    def list(self, request):
+        queryset = self.queryset
+        type = request.query_params.get('type', None)
+        is_paid = request.query_params.get('is_paid', None)
+        full_scholarship = request.query_params.get('full_scholarship', None)
+        country = request.query_params.get('country', None)
 
-# full access [ GET, POST, DELETE, PUT]
-class EducationViewSet(viewsets.ModelViewSet):
-    queryset = Education.objects.all()
-    serializer_class = EducationSerializer
-    permission_classes = [IsAdminUser]
-    authentication_classes = [SessionAuthentication]
+        if type:
+            queryset = queryset.filter(type=type.upper())
+        if is_paid is not None:
+            queryset = queryset.filter(is_paid=is_paid.lower() == 'true')
+        if full_scholarship is not None:
+            queryset = queryset.filter(full_scholarship=full_scholarship.lower() == 'true')
+        if country:
+            queryset = queryset.filter(country__icontains=country)
 
-# only get [ GET ]
-class GetEducations(viewsets.ReadOnlyModelViewSet):
-    queryset = Education.objects.all()
-    serializer_class = EducationSerializer
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
-
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-class RegisterView(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-
-class LoginView(APIView):
-    serializer_class = LoginSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data = request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data.get('user')
-        login(request, user)
-        token, created = Token.objects.get_or_create(user = user)
-
-        return Response({
-            'token': token.key,
-            'message':'login succesfull!!'
-        })
 
 class ApplicationFormViewSet(viewsets.ModelViewSet):
     queryset = ApplicationForm.objects.all()
     serializer_class = ApplicationFormSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return ApplicationForm.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.user != request.user:
+            return Response({"detail": "You do not have permission to delete this application."},
+                            status=status.HTTP_403_FORBIDDEN)
+        return super().destroy(request, *args, **kwargs)
