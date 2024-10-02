@@ -57,7 +57,7 @@ const refreshAccessToken = async () => {
 };
 
 export const getOffers = () => api.get("/offers/");
-export const login = (credentials) => api.post("/users/login/", credentials);
+export const login = (credentials) => api.post("/user/", credentials);
 export const getUserProfile = () => api.get("/users/");
 export const createApplication = (applicationData) => {
   return api.post("/applications/create/", applicationData);
@@ -66,11 +66,11 @@ export const listApplications = () => {
   return api.get("/applications/");
 };
 export const register = async (data) => {
-  return await api.post("/users/register/", data);
+  return await api.post("/register/", data);
 };
 export const validateToken = async (token) => {
   try {
-    const response = await api.post("/users/validate-token/", { token });
+    const response = await api.post("/validate-token/", { token });
     return response.data.valid;
   } catch (error) {
     console.error("Token validation failed:", error);
