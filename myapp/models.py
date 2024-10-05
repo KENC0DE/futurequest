@@ -20,6 +20,10 @@ class Offers(models.Model):
 
     # New fields
     is_paid = models.BooleanField(default=True)
+    youtube_link = models.URLField(blank=True, null=True)
+
+    # Image field
+    image = models.ImageField(upload_to='offers_images/', blank=True, null=True)
 
     def __str__(self):
         return f"{self.title} ({self.get_type_display()})"
