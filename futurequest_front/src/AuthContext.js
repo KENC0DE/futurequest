@@ -65,6 +65,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error("Login failed:", error);
       setError(error.message);
+      throw new Error("Login response did not contain access token");
     } finally {
       setIsLoading(false);
     }

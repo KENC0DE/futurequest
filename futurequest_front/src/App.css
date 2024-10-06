@@ -1,5 +1,5 @@
 /* App.css */
-.slanted-button {
+.slanted-button, .slt-btn {
   position: relative;
   padding: 10px 20px;
   color: white;
@@ -19,9 +19,10 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.slanted-button > * {
+.slanted-button > *{
   transform: skew(20deg);
 }
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -34,3 +35,19 @@
     font-size: 16px;
   }
 }
+
+/* App.css */
+.slant-button {
+  position: relative;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 0.3s;
+  transform: skew(-20deg);
+  margin-right: -10px;
+  font-size: 14px;
+}
+

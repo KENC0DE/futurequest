@@ -1,82 +1,65 @@
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getOffers } from "../api";
+import { useOffers } from "../OffersContext";
 
-const WorkProducts = [
-  {
-    id: 1,
-    name: "PARALLELOGRAM T-SHIRT",
-    price: "$29.00",
-    image: "https://via.placeholder.com/400x400?text=Parallelogram+T-Shirt",
-  },
-  {
-    id: 2,
-    name: "30 FPS T-SHIRT",
-    price: "$29.00",
-    image: "https://via.placeholder.com/400x400?text=30+FPS+T-Shirt",
-  },
-  {
-    id: 3,
-    name: "HISTOGRAM T-SHIRT",
-    price: "$29.00",
-    image: "https://via.placeholder.com/400x400?text=Histogram+T-Shirt",
-  },
-  {
-    id: 4,
-    name: "KEYBOARD T-SHIRT",
-    price: "$29.00",
-    image: "https://via.placeholder.com/400x400?text=Keyboard+T-Shirt",
-  },
-  {
-    id: 1,
-    name: "PARALLELOGRAM T-SHIRT",
-    price: "$29.00",
-    image: "https://via.placeholder.com/400x400?text=Parallelogram+T-Shirt",
-  },
-  {
-    id: 2,
-    name: "30 FPS T-SHIRT",
-    price: "$29.00",
-    image: "https://via.placeholder.com/400x400?text=30+FPS+T-Shirt",
-  },
-  {
-    id: 3,
-    name: "HISTOGRAM T-SHIRT",
-    price: "$29.00",
-    image: "https://via.placeholder.com/400x400?text=Histogram+T-Shirt",
-  },
-  {
-    id: 4,
-    name: "KEYBOARD T-SHIRT",
-    price: "$29.00",
-    image: "https://via.placeholder.com/400x400?text=Keyboard+T-Shirt",
-  },
-];
-
-const offerClick = (navigate) => {
-  navigate("/offer-details");
+const offerClick = (navigate, id) => {
+  navigate(`/offer-details/${id}/`);
 };
 
 const Work = () => {
   const navigate = useNavigate();
+  const { params } = useOffers();
+  const [error, setError] = useState(null);
+  const [offers, setOffers] = useState([]);
+
+  useEffect(() => {
+    getOffers(params)
+      .then((response) => {
+        setOffers(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching offers:", error);
+        setError("Failed to fetch Offers. Please try again later.");
+      });
+  }, [params]);
+
   return (
-    <div className="product-grid-container">
-      <h3 className="education-header">Work</h3>
-      <div className="product-grid">
-        {WorkProducts.map((product) => (
-          <div
-            key={product.id}
-            className="product-card"
-            onClick={() => offerClick(navigate)}
-          >
-            <div className="product-image">
-              <img src={product.image} alt={product.name} />
+    <div className="w-full m-auto md:mt-2 bg-gray-100 box-content h-screen">
+      <h3 className="text-center text-[#fe9920] text-2xl font-bold mb-4">
+        Work
+      </h3>
+      <div className="flex justify-center md:w-3/4 m-auto rounded-[20px] gap-10 py-2.5 px-2 flex-wrap bg-gray-100">
+        {offers.length > 0 ? (
+          offers.map((offer) => (
+            <div
+              key={offer.id}
+              className="bg-red-800 rounded p-4 max-w-[250px] shadow-md text-center transition-transform duration-300 ease-in-out relative hover:-translate-y-1.5 cursor-pointer"
+              onClick={() => offerClick(navigate, offer.id)}
+            >
+              {/* Uncomment the below lines if image is available */}
+              {
+                <div className="mb-4">
+                  <img
+                    src={offer.image}
+                    alt={offer.name}
+                    className="w-full min-w-36 h-40 object-cover rounded-md bg-gray-100"
+                  />
+                </div>
+              }
+              <div className="text-white">
+                <h3 className="text-lg font-semibold mb-2 uppercase">
+                  {offer.title}
+                </h3>
+                <p className="text-base">{offer.description}</p>
+              </div>
             </div>
-            <div className="product-details">
-              <h3>{product.name}</h3>
-              <p>{product.price}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <h3 className="text-red-600">No Work Offer In This Category</h3>
+        )}
       </div>
+      {error && <p className="text-red-500 text-center mt-4">{error}</p>}
     </div>
   );
 };

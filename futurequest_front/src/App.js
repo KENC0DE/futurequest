@@ -19,17 +19,15 @@ import LoginForm from "./components/LoginForm";
 import PrivateRoute from "./PrivateRoute";
 import Logout from "./components/Logout";
 import Home from "./components/Home";
+import { OffersProvider } from "./OffersContext";
 
 function AppContent() {
   return (
-    <div className="App">
+    <div className="App flex flex-col">
       <Header />
-      <main>
+      <main className="mt-14">
         <Routes>
-          <Route
-            path="/"
-            element={<Home />}
-          />
+          <Route path="/" element={<Home />} />
           <Route element={<PrivateRoute />}>
             <Route path="profile" element={<Profile />} />
             <Route path="logout" element={<Logout />} />
@@ -40,7 +38,7 @@ function AppContent() {
           <Route path="/register" element={<SignUpForm />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/apply" element={<ApplicationForm />} />
-          <Route path="/offer-details" element={<OfferDetails />} />
+          <Route path="/offer-details/:id/" element={<OfferDetails />} />
           <Route path="/work" element={<Work />} />
           <Route path="/education" element={<Education />} />
           <Route path="/free" element={<Free />} />
@@ -53,9 +51,11 @@ function AppContent() {
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <AppContent />
-      </Router>
+      <OffersProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </OffersProvider>
     </AuthProvider>
   );
 }

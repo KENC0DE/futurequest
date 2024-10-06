@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   FaShoppingBag,
   FaYoutube,
@@ -23,22 +24,22 @@ function Home() {
           Your browser does not support the video tag.
         </video>
         <div className="relative z-10 p-5">
-          <h1 className="text-4xl font-bold text-black mb-8 transform skew[-10deg] md:text-2xl">
-            The Main TagLine
+          <h1 className="text-2xl font-bold text-black mb-8 transform skew[-10deg] md:text-4xl">
+            QUALITY EDUCATION AND CAREER GUIDANCE
           </h1>
           <div className="flex justify-center gap-4">
-            <a href="#education">
+            <Link to="/education">
               <button className="slanted-button flex items-center justify-center px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded shadow transform skew[-20deg] transition-transform duration-300">
                 <FaShoppingBag className="mr-2 transform skew[20deg]" />
                 Education
               </button>
-            </a>
-            <a href="#work">
+            </Link>
+            <Link to="/work">
               <button className="slanted-button flex items-center justify-center px-4 py-2 text-white bg-gray-800 hover:bg-gray-700 rounded shadow transform skew[-20deg] transition-transform duration-300">
                 <FaYoutube className="mr-2 transform skew[20deg]" />
                 Work
               </button>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
