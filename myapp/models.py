@@ -29,26 +29,22 @@ class Offers(models.Model):
         return f"{self.title} ({self.get_type_display()})"
 
 
-# New model for ApplicationForm
-class ApplicationForm(models.Model):
-    # New fields for User and Offer
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='applications')
-    offer = models.ForeignKey(Offers, on_delete=models.CASCADE, related_name='applications')
-
-    # Personal Information
+class PersonalInformation(models.Model):
     full_name = models.CharField(max_length=255)
     date_of_birth = models.DateField()
     gender = models.CharField(max_length=50)
     nationality = models.CharField(max_length=100)
     passport_number = models.CharField(max_length=100)
 
-    # Contact Information
+
+class ContactInformation(models.Model):
     phone_number = models.CharField(max_length=20)
     email_address = models.EmailField()
     permanent_address = models.TextField()
     current_address = models.TextField(blank=True, null=True)
 
-    # Educational Background
+
+class EducationalBackground(models.Model):
     high_school_name = models.CharField(max_length=255)
     high_school_address = models.CharField(max_length=255)
     high_school_graduation_date = models.DateField()
@@ -64,26 +60,16 @@ class ApplicationForm(models.Model):
     undergraduate_major_subjects = models.TextField()
     undergraduate_honors_awards = models.TextField(blank=True, null=True)
 
-    # Letters of Recommendation
-    recommender1_name = models.CharField(max_length=255)
-    recommender1_title_position = models.CharField(max_length=255)
-    recommender1_institution_organization = models.CharField(max_length=255)
-    recommender1_email = models.EmailField()
-    recommender1_phone_number = models.CharField(max_length=20)
 
-    recommender2_name = models.CharField(max_length=255)
-    recommender2_title_position = models.CharField(max_length=255)
-    recommender2_institution_organization = models.CharField(max_length=255)
-    recommender2_email = models.EmailField()
-    recommender2_phone_number = models.CharField(max_length=20)
+class Recommender(models.Model):
+    name = models.CharField(max_length=255)
+    title_position = models.CharField(max_length=255)
+    institution_organization = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=20)
 
-    recommender3_name = models.CharField(max_length=255)
-    recommender3_title_position = models.CharField(max_length=255)
-    recommender3_institution_organization = models.CharField(max_length=255)
-    recommender3_email = models.EmailField()
-    recommender3_phone_number = models.CharField(max_length=20)
 
-    # Personal Statements and Essays
+class PersonalStatementsEssays(models.Model):
     background_influences = models.TextField()
     academic_interests = models.TextField()
     career_goals = models.TextField()
@@ -93,7 +79,8 @@ class ApplicationForm(models.Model):
     unique_qualities = models.TextField()
     additional_information = models.TextField(blank=True, null=True)
 
-    # Documents Required (File Fields)
+
+class DocumentsRequired(models.Model):
     sat_act_scores = models.FileField(upload_to='documents/', blank=True, null=True)
     gre_gmat_scores = models.FileField(upload_to='documents/', blank=True, null=True)
     toefl_ielts_scores = models.FileField(upload_to='documents/', blank=True, null=True)
@@ -108,5 +95,21 @@ class ApplicationForm(models.Model):
     work_experience = models.FileField(upload_to='documents/', blank=True, null=True)
     passport_size_photo = models.ImageField(upload_to='photos/', blank=True, null=True)
 
+
+class ApplicationForm(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='applications')
+    offer = models.ForeignKey(Offers, on_delete=models.CASCADE, related_name='applications')
+
+    personal_information = models.OneToOneField(PersonalInformation, on_delete=models.CASCADE, null=True)
+    contact_information = models.OneToOneField(ContactInformation, on_delete=models.CASCADE, null=True)
+    educational_background = models.OneToOneField(EducationalBackground, on_delete=models.CASCADE, null=True)
+    recommender1 = models.OneToOneField(Recommender, related_name='recommender1', on_delete=models.CASCADE, null=True)
+    recommender2 = models.OneToOneField(Recommender, related_name='recommender2', on_delete=models.CASCADE, null=True)
+    recommender3 = models.OneToOneField(Recommender, related_name='recommender3', on_delete=models.CASCADE, null=True)
+    personal_statements_essays = models.OneToOneField(PersonalStatementsEssays, on_delete=models.CASCADE, null=True)
+    documents_required = models.OneToOneField(DocumentsRequired, on_delete=models.CASCADE, null=True)
+
     def __str__(self):
-        return f"{self.full_name} - {self.offer.title}"
+        personal_info = self.personal_information.full_name if self.personal_information else "No Personal Info"
+        offer_title = self.offer.title if self.offer else "No Offer"
+        return f"{personal_info} - {offer_title}"
