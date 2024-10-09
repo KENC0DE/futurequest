@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getOffers } from "../api";
 import { useOffers } from "../OffersContext";
@@ -9,12 +9,19 @@ const offerClick = (navigate, id) => {
 
 const Work = () => {
   const navigate = useNavigate();
-  const { params } = useOffers();
+  const location = useLocation();
+  const { setParams } = useOffers();
   const [error, setError] = useState(null);
   const [offers, setOffers] = useState([]);
 
   useEffect(() => {
-    getOffers(params)
+    const queryParams = new URLSearchParams(location.search);
+    const type = queryParams.get("type") || "WORK";
+    const isPaid = queryParams.get("is_paid") === "true";
+
+    setParams({ type, is_paid: isPaid });
+
+    getOffers({ type, is_paid: isPaid })
       .then((response) => {
         setOffers(response.data);
       })
@@ -22,7 +29,7 @@ const Work = () => {
         console.error("Error fetching offers:", error);
         setError("Failed to fetch Offers. Please try again later.");
       });
-  }, [params]);
+  }, [location.search, setParams]);
 
   return (
     <div className="w-full m-auto md:mt-2 bg-gray-100 box-content h-screen">
@@ -37,16 +44,13 @@ const Work = () => {
               className="bg-red-800 rounded p-4 max-w-[250px] shadow-md text-center transition-transform duration-300 ease-in-out relative hover:-translate-y-1.5 cursor-pointer"
               onClick={() => offerClick(navigate, offer.id)}
             >
-              {/* Uncomment the below lines if image is available */}
-              {
-                <div className="mb-4">
-                  <img
-                    src={offer.image}
-                    alt={offer.name}
-                    className="w-full min-w-36 h-40 object-cover rounded-md bg-gray-100"
-                  />
-                </div>
-              }
+              <div className="mb-4">
+                <img
+                  src={offer.image}
+                  alt={offer.name}
+                  className="w-full min-w-36 h-40 object-cover rounded-md bg-gray-100"
+                />
+              </div>
               <div className="text-white">
                 <h3 className="text-lg font-semibold mb-2 uppercase">
                   {offer.title}

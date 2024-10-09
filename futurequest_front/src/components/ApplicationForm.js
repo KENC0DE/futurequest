@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createApplication } from "../api";
 
 // Reusable Section component
 const Section = ({ title, children }) => (
@@ -14,11 +15,11 @@ const Section = ({ title, children }) => (
 const FormGroup = ({
   label,
   id,
-  type,
+  type = "text",
   name,
   value,
   onChange,
-  required,
+  required = false,
   accept,
   children,
 }) => (
@@ -45,7 +46,7 @@ const FormGroup = ({
 
 // Main ApplicationForm component
 const ApplicationForm = () => {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     fullName: "",
     dateOfBirth: "",
     gender: "",
@@ -102,16 +103,60 @@ const ApplicationForm = () => {
       workExperience: null,
       photo: null,
     },
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
   };
 
+  const [formData, setFormData] = useState(initialFormData);
+
+  /**
+   * Handles changes for both nested and array fields.
+   * @param {Object} e - The event object.
+   */
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    // Regex to match array fields e.g., recommenders[0].fullName
+    const arrayFieldRegex = /^(\w+)\[(\d+)\]\.(\w+)$/;
+    const match = name.match(arrayFieldRegex);
+
+    if (match) {
+      const arrayName = match[1]; // e.g., 'recommenders'
+      const index = parseInt(match[2], 10); // e.g., 0
+      const field = match[3]; // e.g., 'fullName'
+
+      setFormData((prevData) => {
+        const updatedArray = prevData[arrayName].map((item, idx) => {
+          if (idx === index) {
+            return { ...item, [field]: value };
+          }
+          return item;
+        });
+
+        return { ...prevData, [arrayName]: updatedArray };
+      });
+    } else {
+      const nameParts = name.split(".");
+      if (nameParts.length === 2) {
+        const [parent, child] = nameParts;
+        setFormData((prevData) => ({
+          ...prevData,
+          [parent]: {
+            ...prevData[parent],
+            [child]: value,
+          },
+        }));
+      } else {
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+      }
+    }
+  };
+
+  /**
+   * Handles file input changes.
+   * @param {Object} e - The event object.
+   */
   const handleFileChange = (e) => {
     const { name, files } = e.target;
     setFormData((prevData) => ({
@@ -120,9 +165,65 @@ const ApplicationForm = () => {
     }));
   };
 
+  /**
+   * Serializes the form data into FormData object.
+   * Handles nested objects and arrays appropriately.
+   * @param {Object} data - The form data.
+   * @param {FormData} formDataToSubmit - The FormData object to append data to.
+   * @param {String} parentKey - The parent key for nested fields.
+   */
+  const serialize = (data, formDataToSubmit, parentKey = "") => {
+    if (data && typeof data === "object" && !(data instanceof File)) {
+      if (Array.isArray(data)) {
+        data.forEach((item, index) => {
+          serialize(item, formDataToSubmit, `${parentKey}[${index}]`);
+        });
+      } else {
+        Object.keys(data).forEach((key) => {
+          const value = data[key];
+          const newKey = parentKey ? `${parentKey}.${key}` : key;
+          serialize(value, formDataToSubmit, newKey);
+        });
+      }
+    } else {
+      formDataToSubmit.append(parentKey, data);
+    }
+  };
+
+  /**
+   * Handles form submission.
+   * Serializes form data and sends it via the createApplication API.
+   * @param {Object} e - The event object.
+   */
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const formDataToSubmit = new FormData();
+
+      // Serialize the entire formData object
+      serialize(formData, formDataToSubmit);
+
+      // Append files from documents separately
+      Object.keys(formData.documents).forEach((key) => {
+        if (formData.documents[key]) {
+          formDataToSubmit.append(`documents.${key}`, formData.documents[key]);
+        }
+      });
+
+      await createApplication(formDataToSubmit);
+      alert("Application submitted successfully!");
+
+      // Reset the form to initial state
+      setFormData(initialFormData);
+    } catch (error) {
+      console.error("Error submitting application:", error);
+      alert("Failed to submit application. Please try again later.");
+    }
+  };
+
   return (
     <form
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={handleSubmit}
       className="max-w-4xl mx-auto p-5 bg-gray-100 rounded-lg shadow"
     >
       <h1 className="text-center text-2xl text-gray-800 mb-5">
@@ -320,6 +421,7 @@ const ApplicationForm = () => {
           name="undergraduate.name"
           value={formData.undergraduate.name}
           onChange={handleInputChange}
+          required
         />
         <FormGroup
           label="Address of University"
@@ -327,6 +429,7 @@ const ApplicationForm = () => {
           name="undergraduate.address"
           value={formData.undergraduate.address}
           onChange={handleInputChange}
+          required
         >
           <textarea
             className="w-full h-32 p-2.5 border border-gray-300 rounded-md text-base resize-y focus:border-blue-500 focus:ring focus:ring-blue-500
@@ -335,6 +438,7 @@ const ApplicationForm = () => {
             name="undergraduate.address"
             value={formData.undergraduate.address}
             onChange={handleInputChange}
+            required
           />
         </FormGroup>
         <FormGroup
@@ -344,6 +448,7 @@ const ApplicationForm = () => {
           name="undergraduate.graduationDate"
           value={formData.undergraduate.graduationDate}
           onChange={handleInputChange}
+          required
         />
         <FormGroup
           label="Degree Awarded"
@@ -352,6 +457,7 @@ const ApplicationForm = () => {
           name="undergraduate.degree"
           value={formData.undergraduate.degree}
           onChange={handleInputChange}
+          required
         />
         <FormGroup
           label="GPA/Percentage"
@@ -360,6 +466,7 @@ const ApplicationForm = () => {
           name="undergraduate.gpa"
           value={formData.undergraduate.gpa}
           onChange={handleInputChange}
+          required
         />
         <FormGroup
           label="Major Subjects Studied"
@@ -367,6 +474,7 @@ const ApplicationForm = () => {
           name="undergraduate.majorSubjects"
           value={formData.undergraduate.majorSubjects}
           onChange={handleInputChange}
+          required
         >
           <textarea
             className="w-full h-32 p-2.5 border border-gray-300 rounded-md text-base resize-y focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
@@ -374,6 +482,7 @@ const ApplicationForm = () => {
             name="undergraduate.majorSubjects"
             value={formData.undergraduate.majorSubjects}
             onChange={handleInputChange}
+            required
           />
         </FormGroup>
         <FormGroup
@@ -404,45 +513,45 @@ const ApplicationForm = () => {
               label="Full Name"
               type="text"
               id={`recommenders[${index}].fullName`}
-              name="fullName"
+              name={`recommenders[${index}].fullName`}
               value={recommender.fullName}
-              onChange={(e) => handleInputChange(index, e)}
+              onChange={handleInputChange}
               required
             />
             <FormGroup
               label="Title/Position"
               type="text"
               id={`recommenders[${index}].title`}
-              name="title"
+              name={`recommenders[${index}].title`}
               value={recommender.title}
-              onChange={(e) => handleInputChange(index, e)}
+              onChange={handleInputChange}
               required
             />
             <FormGroup
               label="Institution/Organization"
               type="text"
               id={`recommenders[${index}].institution`}
-              name="institution"
+              name={`recommenders[${index}].institution`}
               value={recommender.institution}
-              onChange={(e) => handleInputChange(index, e)}
+              onChange={handleInputChange}
               required
             />
             <FormGroup
               label="Email Address"
               type="email"
               id={`recommenders[${index}].email`}
-              name="email"
+              name={`recommenders[${index}].email`}
               value={recommender.email}
-              onChange={(e) => handleInputChange(index, e)}
+              onChange={handleInputChange}
               required
             />
             <FormGroup
               label="Phone Number"
               type="tel"
               id={`recommenders[${index}].phone`}
-              name="phone"
+              name={`recommenders[${index}].phone`}
               value={recommender.phone}
-              onChange={(e) => handleInputChange(index, e)}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -465,9 +574,10 @@ const ApplicationForm = () => {
             name="personalStatements.backgroundInfluences"
             value={formData.personalStatements.backgroundInfluences}
             onChange={handleInputChange}
+            required
           />
         </FormGroup>
-        {/* Additional personal statement fields... */}
+        {/* Additional personal statement fields can be added here following the same pattern */}
       </Section>
 
       {/* Documents Upload Section */}
@@ -490,7 +600,7 @@ const ApplicationForm = () => {
           required
           accept=".pdf"
         />
-        {/* Additional document upload fields... */}
+        {/* Additional document upload fields can be added here following the same pattern */}
       </Section>
 
       <button

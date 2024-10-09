@@ -10,27 +10,35 @@ function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
   const paidToggle = () => {
     setIsOpen1(!isOpen1);
   };
+
   const freeToggle = () => {
     setIsOpen2(!isOpen2);
   };
+
   const paidWork = () => {
     setParams({ type: "WORK", is_paid: true });
   };
+
   const freeWork = () => {
     setParams({ type: "WORK", is_paid: false });
   };
+
   const paidEdu = () => {
     setParams({ type: "EDUCATION", is_paid: true });
   };
+
   const freeEdu = () => {
     setParams({ type: "EDUCATION", is_paid: false });
   };
+
   return (
     <header className="bg-white shadow fixed z-50 w-full">
       <nav className="flex justify-between items-center p-3">
@@ -108,9 +116,9 @@ function Header() {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="m1 0 4 4 4-4"
                   />
                 </svg>
@@ -122,7 +130,7 @@ function Header() {
               >
                 <li>
                   <Link
-                    to="/work"
+                    to="/work?type=WORK&is_paid=true"
                     onClick={paidWork}
                     className="text-gray-600 hover:text-blue-500 px-4 py-2"
                   >
@@ -131,7 +139,7 @@ function Header() {
                 </li>
                 <li>
                   <Link
-                    to="/education"
+                    to="/education?type=EDUCATION&is_paid=true"
                     onClick={paidEdu}
                     className="text-gray-600 hover:text-blue-500 px-4 py-2"
                   >
@@ -155,9 +163,9 @@ function Header() {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="m1 0 4 4 4-4"
                   />
                 </svg>
@@ -168,7 +176,7 @@ function Header() {
               >
                 <li>
                   <Link
-                    to="/work"
+                    to="/work?type=WORK&is_paid=false"
                     onClick={freeWork}
                     className="text-gray-600 hover:text-blue-500 px-4 py-2"
                   >
@@ -177,7 +185,7 @@ function Header() {
                 </li>
                 <li>
                   <Link
-                    to="/education"
+                    to="/education?type=EDUCATION&is_paid=false"
                     onClick={freeEdu}
                     className="text-gray-600 hover:text-blue-500 px-4 py-2"
                   >

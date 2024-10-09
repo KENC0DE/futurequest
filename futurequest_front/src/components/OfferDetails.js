@@ -1,11 +1,17 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getOfferDetails } from "../api";
+import { Link } from "react-router-dom";
 
 const OfferDetails = () => {
   const { id } = useParams();
   const [error, setError] = useState(null);
   const [OfferDetails, setOfferDetails] = useState();
+  const navigate = useNavigate();
+
+  const handleApplyClick = () => {
+    navigate("/apply");
+  };
 
   useEffect(() => {
     getOfferDetails(id)
@@ -23,7 +29,7 @@ const OfferDetails = () => {
   return (
     <div className="bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
       {OfferDetails ? (
-        <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
+        <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 relative">
           <div className="mb-6">
             <h4 className="text-xl font-semibold text-gray-800 mb-2">
               Title: {OfferDetails.title}
@@ -40,15 +46,21 @@ const OfferDetails = () => {
               Requirements
             </h3>
             <ul className="list-disc pl-5 space-y-2">
-            {OfferDetails.requirements ? (
-              OfferDetails.requirements.map((req, index) => (
-                <li key={index}>{req}</li>
-              ))
-            ) : (
-              <li>No specific requirements listed.</li>
-            )}
+              {OfferDetails.requirements ? (
+                OfferDetails.requirements.map((req, index) => (
+                  <li key={index}>{req}</li>
+                ))
+              ) : (
+                <li>No specific requirements listed.</li>
+              )}
             </ul>
           </div>
+          <button
+            className="absolute right-4 bottom-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
+            onClick={handleApplyClick}
+          >
+            Apply
+          </button>
         </div>
       ) : null}
     </div>

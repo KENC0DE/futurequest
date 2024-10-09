@@ -61,7 +61,7 @@ export const login = (credentials) => api.post("/login/", credentials);
 export const getUserProfile = () => api.get("/user/");
 export const getOfferDetails = (id) => api.get(`/offers/${id}/`);
 export const createApplication = (applicationData) => {
-  return api.post("/applications/create/", applicationData);
+  return api.post("/applications/", applicationData);
 };
 export const listApplications = () => {
   return api.get("/applications/");
