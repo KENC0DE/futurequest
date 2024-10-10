@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createApplication } from "../api";
 
-// Reusable Section component
+
 const Section = ({ title, children }) => (
   <section className="mb-8 bg-white p-5 rounded-lg shadow">
     <h2 className="text-xl font-semibold text-blue-600 border-b-2 border-blue-400 pb-2 mb-5">
@@ -11,7 +11,7 @@ const Section = ({ title, children }) => (
   </section>
 );
 
-// Reusable FormGroup component for labels and inputs
+
 const FormGroup = ({
   label,
   id,
@@ -47,62 +47,65 @@ const FormGroup = ({
 // Main ApplicationForm component
 const ApplicationForm = () => {
   const initialFormData = {
-    fullName: "",
-    dateOfBirth: "",
+    offer: 1,
+    full_name: "",
+    date_of_birth: "",
     gender: "",
     nationality: "",
-    passportNumber: "",
-    phoneNumber: "",
-    email: "",
-    permanentAddress: "",
-    currentAddress: "",
-    highSchool: {
-      name: "",
-      address: "",
-      graduationDate: "",
-      gpa: "",
-      majorSubjects: "",
-      honorsAwards: "",
-    },
-    undergraduate: {
-      name: "",
-      address: "",
-      graduationDate: "",
-      degree: "",
-      gpa: "",
-      majorSubjects: "",
-      honorsAwards: "",
-    },
-    recommenders: [
-      { fullName: "", title: "", institution: "", email: "", phone: "" },
-      { fullName: "", title: "", institution: "", email: "", phone: "" },
-      { fullName: "", title: "", institution: "", email: "", phone: "" },
-    ],
-    personalStatements: {
-      backgroundInfluences: "",
-      academicInterests: "",
-      careerGoals: "",
-      extracurricularActivities: "",
-      personalAchievements: "",
-      challengesOvercome: "",
-      uniqueQualities: "",
-      additionalInfo: "",
-    },
-    documents: {
-      satScores: null,
-      greGmatScores: null,
-      englishProficiency: null,
-      cv: null,
-      certificatesAwards: null,
-      passportScan: null,
-      highSchoolTranscript: null,
-      highSchoolDiploma: null,
-      nationalExamResult: null,
-      universityTranscripts: null,
-      universityDegree: null,
-      workExperience: null,
-      photo: null,
-    },
+    passport_number: "",
+    phone_number: "",
+    email_address: "",
+    permanent_address: "",
+    current_address: "",
+    high_school_name: "",
+    high_school_address: "",
+    high_school_graduation_date: "",
+    high_school_gpa: "",
+    high_school_major_subjects: "",
+    high_school_honors_awards: "",
+    undergraduate_university_name: "",
+    undergraduate_university_address: "",
+    undergraduate_graduation_date: "",
+    undergraduate_degree_awarded: "",
+    undergraduate_gpa: "",
+    undergraduate_major_subjects: "",
+    undergraduate_honors_awards: "",
+    recommender1_name: "",
+    recommender1_title_position: "",
+    recommender1_institution_organization: "",
+    recommender1_email: "",
+    recommender1_phone_number: "",
+    recommender2_name: "",
+    recommender2_title_position: "",
+    recommender2_institution_organization: "",
+    recommender2_email: "",
+    recommender2_phone_number: "",
+    recommender3_name: "",
+    recommender3_title_position: "",
+    recommender3_institution_organization: "",
+    recommender3_email: "",
+    recommender3_phone_number: "",
+    background_influences: "",
+    academic_interests: "",
+    career_goals: "",
+    extracurricular_activities: "",
+    personal_achievements: "",
+    challenges_overcoming: "",
+    unique_qualities: "",
+    additional_information: "",
+    sat_act_scores: null,
+    gre_gmat_scores: null,
+    toefl_ielts_scores: null,
+    cv: null,
+    certificates_awards: null,
+    passport_id_scan: null,
+    highschool_transcript: null,
+    highschool_diploma: null,
+    national_exam_result: null,
+    university_transcripts: null,
+    university_degree: null,
+    work_experience: null,
+    passport_size_photo: null,
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -113,44 +116,10 @@ const ApplicationForm = () => {
    */
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
-    // Regex to match array fields e.g., recommenders[0].fullName
-    const arrayFieldRegex = /^(\w+)\[(\d+)\]\.(\w+)$/;
-    const match = name.match(arrayFieldRegex);
-
-    if (match) {
-      const arrayName = match[1]; // e.g., 'recommenders'
-      const index = parseInt(match[2], 10); // e.g., 0
-      const field = match[3]; // e.g., 'fullName'
-
-      setFormData((prevData) => {
-        const updatedArray = prevData[arrayName].map((item, idx) => {
-          if (idx === index) {
-            return { ...item, [field]: value };
-          }
-          return item;
-        });
-
-        return { ...prevData, [arrayName]: updatedArray };
-      });
-    } else {
-      const nameParts = name.split(".");
-      if (nameParts.length === 2) {
-        const [parent, child] = nameParts;
-        setFormData((prevData) => ({
-          ...prevData,
-          [parent]: {
-            ...prevData[parent],
-            [child]: value,
-          },
-        }));
-      } else {
-        setFormData((prevData) => ({
-          ...prevData,
-          [name]: value,
-        }));
-      }
-    }
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   /**
@@ -161,7 +130,7 @@ const ApplicationForm = () => {
     const { name, files } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      documents: { ...prevData.documents, [name]: files[0] },
+      [name]: files[0],
     }));
   };
 
@@ -173,20 +142,17 @@ const ApplicationForm = () => {
    * @param {String} parentKey - The parent key for nested fields.
    */
   const serialize = (data, formDataToSubmit, parentKey = "") => {
-    if (data && typeof data === "object" && !(data instanceof File)) {
-      if (Array.isArray(data)) {
-        data.forEach((item, index) => {
-          serialize(item, formDataToSubmit, `${parentKey}[${index}]`);
-        });
-      } else {
-        Object.keys(data).forEach((key) => {
-          const value = data[key];
-          const newKey = parentKey ? `${parentKey}.${key}` : key;
-          serialize(value, formDataToSubmit, newKey);
-        });
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        const value = data[key];
+        const formKey = parentKey ? `${parentKey}[${key}]` : key;
+
+        if (value && typeof value === "object" && !(value instanceof File)) {
+          serialize(value, formDataToSubmit, formKey);
+        } else {
+          formDataToSubmit.append(formKey, value);
+        }
       }
-    } else {
-      formDataToSubmit.append(parentKey, data);
     }
   };
 
@@ -197,27 +163,26 @@ const ApplicationForm = () => {
    */
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formDataToSubmit = new FormData();
+    serialize(formData, formDataToSubmit);
+
+    // Log the FormData content
+    for (let pair of formDataToSubmit.entries()) {
+      console.log(pair[0] + ": " + pair[1]);
+    }
+
     try {
-      const formDataToSubmit = new FormData();
-
-      // Serialize the entire formData object
-      serialize(formData, formDataToSubmit);
-
-      // Append files from documents separately
-      Object.keys(formData.documents).forEach((key) => {
-        if (formData.documents[key]) {
-          formDataToSubmit.append(`documents.${key}`, formData.documents[key]);
-        }
-      });
-
       await createApplication(formDataToSubmit);
       alert("Application submitted successfully!");
-
-      // Reset the form to initial state
-      setFormData(initialFormData);
     } catch (error) {
       console.error("Error submitting application:", error);
-      alert("Failed to submit application. Please try again later.");
+
+      // Log the error response
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+      }
+
+      alert("Failed to submit application.");
     }
   };
 
@@ -229,385 +194,469 @@ const ApplicationForm = () => {
       <h1 className="text-center text-2xl text-gray-800 mb-5">
         Prospective Student University Application Form
       </h1>
-
-      {/* Personal Information Section */}
-      <Section title="Personal Information">
-        <FormGroup
-          label="Full Name"
-          type="text"
-          id="fullName"
-          name="fullName"
-          value={formData.fullName}
-          onChange={handleInputChange}
-          required
-        />
-        <FormGroup
-          label="Date of Birth"
-          type="date"
-          id="dateOfBirth"
-          name="dateOfBirth"
-          value={formData.dateOfBirth}
-          onChange={handleInputChange}
-          required
-        />
-        <FormGroup
-          label="Gender"
-          type="text"
-          id="gender"
-          name="gender"
-          value={formData.gender}
-          onChange={handleInputChange}
-          required
-        />
-        <FormGroup
-          label="Nationality"
-          type="text"
-          id="nationality"
-          name="nationality"
-          value={formData.nationality}
-          onChange={handleInputChange}
-          required
-        />
-        <FormGroup
-          label="Passport Number"
-          type="text"
-          id="passportNumber"
-          name="passportNumber"
-          value={formData.passportNumber}
-          onChange={handleInputChange}
-          required
-        />
-        <FormGroup
-          label="Phone Number"
-          type="tel"
-          id="phoneNumber"
-          name="phoneNumber"
-          value={formData.phoneNumber}
-          onChange={handleInputChange}
-          required
-        />
-        <FormGroup
-          label="Email Address"
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          required
-        />
-        <FormGroup
-          label="Permanent Address"
-          id="permanentAddress"
-          name="permanentAddress"
-          value={formData.permanentAddress}
-          onChange={handleInputChange}
-          required
-        >
-          <textarea
-            className="w-full h-32 p-2.5 border border-gray-300 rounded-md text-base resize-y focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-            id="permanentAddress"
-            name="permanentAddress"
-            value={formData.permanentAddress}
-            onChange={handleInputChange}
-            required
-          />
-        </FormGroup>
-        <FormGroup
-          label="Current Address (if different from permanent)"
-          id="currentAddress"
-          name="currentAddress"
-          value={formData.currentAddress}
-          onChange={handleInputChange}
-        >
-          <textarea
-            className="w-full h-32 p-2.5 border border-gray-300 rounded-md text-base resize-y focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-            id="currentAddress"
-            name="currentAddress"
-            value={formData.currentAddress}
-            onChange={handleInputChange}
-          />
-        </FormGroup>
-      </Section>
-
-      {/* Educational Background Section */}
-      <Section title="Educational Background">
-        <h3 className="text-lg font-semibold text-gray-700 mb-4">
-          High School Information
-        </h3>
-        <FormGroup
-          label="Name of School"
-          type="text"
-          id="highSchool.name"
-          name="highSchool.name"
-          value={formData.highSchool.name}
-          onChange={handleInputChange}
-          required
-        />
-        <FormGroup
-          label="Address of School"
-          id="highSchool.address"
-          name="highSchool.address"
-          value={formData.highSchool.address}
-          onChange={handleInputChange}
-          required
-        >
-          <textarea
-            className="w-full h-32 p-2.5 border border-gray-300 rounded-md text-base resize-y focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-            id="highSchool.address"
-            name="highSchool.address"
-            value={formData.highSchool.address}
-            onChange={handleInputChange}
-            required
-          />
-        </FormGroup>
-        <FormGroup
-          label="Date of Graduation"
-          type="date"
-          id="highSchool.graduationDate"
-          name="highSchool.graduationDate"
-          value={formData.highSchool.graduationDate}
-          onChange={handleInputChange}
-          required
-        />
-        <FormGroup
-          label="GPA/Percentage"
-          type="text"
-          id="highSchool.gpa"
-          name="highSchool.gpa"
-          value={formData.highSchool.gpa}
-          onChange={handleInputChange}
-          required
-        />
-        <FormGroup
-          label="Major Subjects Studied"
-          id="highSchool.majorSubjects"
-          name="highSchool.majorSubjects"
-          value={formData.highSchool.majorSubjects}
-          onChange={handleInputChange}
-          required
-        >
-          <textarea
-            className="w-full h-32 p-2.5 border border-gray-300 rounded-md text-base resize-y focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-            id="highSchool.majorSubjects"
-            name="highSchool.majorSubjects"
-            value={formData.highSchool.majorSubjects}
-            onChange={handleInputChange}
-            required
-          />
-        </FormGroup>
-        <FormGroup
-          label="Honors/Awards"
-          id="highSchool.honorsAwards"
-          name="highSchool.honorsAwards"
-          value={formData.highSchool.honorsAwards}
-          onChange={handleInputChange}
-        >
-          <textarea
-            className="w-full h-32 p-2.5 border border-gray-300 rounded-md text-base resize-y focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-            id="highSchool.honorsAwards"
-            name="highSchool.honorsAwards"
-            value={formData.highSchool.honorsAwards}
-            onChange={handleInputChange}
-          />
-        </FormGroup>
-
-        <h3 className="text-lg font-semibold text-gray-700 mb-4">
-          Undergraduate Information
-        </h3>
-        <FormGroup
-          label="Name of University"
-          type="text"
-          id="undergraduate.name"
-          name="undergraduate.name"
-          value={formData.undergraduate.name}
-          onChange={handleInputChange}
-          required
-        />
-        <FormGroup
-          label="Address of University"
-          id="undergraduate.address"
-          name="undergraduate.address"
-          value={formData.undergraduate.address}
-          onChange={handleInputChange}
-          required
-        >
-          <textarea
-            className="w-full h-32 p-2.5 border border-gray-300 rounded-md text-base resize-y focus:border-blue-500 focus:ring focus:ring-blue-500
-            focus:ring-opacity-50"
-            id="undergraduate.address"
-            name="undergraduate.address"
-            value={formData.undergraduate.address}
-            onChange={handleInputChange}
-            required
-          />
-        </FormGroup>
-        <FormGroup
-          label="Date of Graduation"
-          type="date"
-          id="undergraduate.graduationDate"
-          name="undergraduate.graduationDate"
-          value={formData.undergraduate.graduationDate}
-          onChange={handleInputChange}
-          required
-        />
-        <FormGroup
-          label="Degree Awarded"
-          type="text"
-          id="undergraduate.degree"
-          name="undergraduate.degree"
-          value={formData.undergraduate.degree}
-          onChange={handleInputChange}
-          required
-        />
-        <FormGroup
-          label="GPA/Percentage"
-          type="text"
-          id="undergraduate.gpa"
-          name="undergraduate.gpa"
-          value={formData.undergraduate.gpa}
-          onChange={handleInputChange}
-          required
-        />
-        <FormGroup
-          label="Major Subjects Studied"
-          id="undergraduate.majorSubjects"
-          name="undergraduate.majorSubjects"
-          value={formData.undergraduate.majorSubjects}
-          onChange={handleInputChange}
-          required
-        >
-          <textarea
-            className="w-full h-32 p-2.5 border border-gray-300 rounded-md text-base resize-y focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-            id="undergraduate.majorSubjects"
-            name="undergraduate.majorSubjects"
-            value={formData.undergraduate.majorSubjects}
-            onChange={handleInputChange}
-            required
-          />
-        </FormGroup>
-        <FormGroup
-          label="Honors/Awards"
-          id="undergraduate.honorsAwards"
-          name="undergraduate.honorsAwards"
-          value={formData.undergraduate.honorsAwards}
-          onChange={handleInputChange}
-        >
-          <textarea
-            className="w-full h-32 p-2.5 border border-gray-300 rounded-md text-base resize-y focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-            id="undergraduate.honorsAwards"
-            name="undergraduate.honorsAwards"
-            value={formData.undergraduate.honorsAwards}
-            onChange={handleInputChange}
-          />
-        </FormGroup>
-      </Section>
-
-      {/* Recommenders Section */}
-      <Section title="Letters of Recommendation">
-        {formData.recommenders.map((recommender, index) => (
-          <div key={index} className="bg-gray-100 p-4 rounded-lg mb-4">
-            <h3 className="text-lg font-semibold text-gray-700 mb-4">
-              Recommender {index + 1}
-            </h3>
-            <FormGroup
-              label="Full Name"
-              type="text"
-              id={`recommenders[${index}].fullName`}
-              name={`recommenders[${index}].fullName`}
-              value={recommender.fullName}
-              onChange={handleInputChange}
-              required
-            />
-            <FormGroup
-              label="Title/Position"
-              type="text"
-              id={`recommenders[${index}].title`}
-              name={`recommenders[${index}].title`}
-              value={recommender.title}
-              onChange={handleInputChange}
-              required
-            />
-            <FormGroup
-              label="Institution/Organization"
-              type="text"
-              id={`recommenders[${index}].institution`}
-              name={`recommenders[${index}].institution`}
-              value={recommender.institution}
-              onChange={handleInputChange}
-              required
-            />
-            <FormGroup
-              label="Email Address"
-              type="email"
-              id={`recommenders[${index}].email`}
-              name={`recommenders[${index}].email`}
-              value={recommender.email}
-              onChange={handleInputChange}
-              required
-            />
-            <FormGroup
-              label="Phone Number"
-              type="tel"
-              id={`recommenders[${index}].phone`}
-              name={`recommenders[${index}].phone`}
-              value={recommender.phone}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-        ))}
-      </Section>
-
-      {/* Personal Statements Section */}
-      <Section title="Personal Statements and Essays">
-        <FormGroup
-          label="Background and Influences"
-          id="personalStatements.backgroundInfluences"
-          name="personalStatements.backgroundInfluences"
-          value={formData.personalStatements.backgroundInfluences}
-          onChange={handleInputChange}
-          required
-        >
-          <textarea
-            className="w-full h-32 p-2.5 border border-gray-300 rounded-md text-base resize-y focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-            id="personalStatements.backgroundInfluences"
-            name="personalStatements.backgroundInfluences"
-            value={formData.personalStatements.backgroundInfluences}
-            onChange={handleInputChange}
-            required
-          />
-        </FormGroup>
-        {/* Additional personal statement fields can be added here following the same pattern */}
-      </Section>
-
-      {/* Documents Upload Section */}
-      <Section title="Documents Required">
-        <FormGroup
-          label="SAT/ACT Scores (PDF)"
-          type="file"
-          id="documents.satScores"
-          name="satScores"
-          onChange={handleFileChange}
-          required
-          accept=".pdf"
-        />
-        <FormGroup
-          label="GRE/GMAT Scores (PDF)"
-          type="file"
-          id="documents.greGmatScores"
-          name="greGmatScores"
-          onChange={handleFileChange}
-          required
-          accept=".pdf"
-        />
-        {/* Additional document upload fields can be added here following the same pattern */}
-      </Section>
-
+      <FormGroup
+        label="Full Name"
+        id="full_name"
+        name="full_name"
+        value={formData.full_name}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Date of Birth"
+        id="date_of_birth"
+        name="date_of_birth"
+        type="date"
+        value={formData.date_of_birth}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Gender"
+        id="gender"
+        name="gender"
+        value={formData.gender}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Nationality"
+        id="nationality"
+        name="nationality"
+        value={formData.nationality}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Passport Number"
+        id="passport_number"
+        name="passport_number"
+        value={formData.passport_number}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Phone Number"
+        id="phone_number"
+        name="phone_number"
+        value={formData.phone_number}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Email Address"
+        id="email_address"
+        name="email_address"
+        type="email"
+        value={formData.email_address}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Permanent Address"
+        id="permanent_address"
+        name="permanent_address"
+        value={formData.permanent_address}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Current Address"
+        id="current_address"
+        name="current_address"
+        value={formData.current_address}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="High School Name"
+        id="high_school_name"
+        name="high_school_name"
+        value={formData.high_school_name}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="High School Address"
+        id="high_school_address"
+        name="high_school_address"
+        value={formData.high_school_address}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="High School Graduation Date"
+        id="high_school_graduation_date"
+        name="high_school_graduation_date"
+        type="date"
+        value={formData.high_school_graduation_date}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="High School GPA"
+        id="high_school_gpa"
+        name="high_school_gpa"
+        value={formData.high_school_gpa}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="High School Major Subjects"
+        id="high_school_major_subjects"
+        name="high_school_major_subjects"
+        value={formData.high_school_major_subjects}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="High School Honors/Awards"
+        id="high_school_honors_awards"
+        name="high_school_honors_awards"
+        value={formData.high_school_honors_awards}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Undergraduate University Name"
+        id="undergraduate_university_name"
+        name="undergraduate_university_name"
+        value={formData.undergraduate_university_name}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Undergraduate University Address"
+        id="undergraduate_university_address"
+        name="undergraduate_university_address"
+        value={formData.undergraduate_university_address}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Undergraduate Graduation Date"
+        id="undergraduate_graduation_date"
+        name="undergraduate_graduation_date"
+        type="date"
+        value={formData.undergraduate_graduation_date}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Undergraduate Degree Awarded"
+        id="undergraduate_degree_awarded"
+        name="undergraduate_degree_awarded"
+        value={formData.undergraduate_degree_awarded}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Undergraduate GPA"
+        id="undergraduate_gpa"
+        name="undergraduate_gpa"
+        value={formData.undergraduate_gpa}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Undergraduate Major Subjects"
+        id="undergraduate_major_subjects"
+        name="undergraduate_major_subjects"
+        value={formData.undergraduate_major_subjects}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Undergraduate Honors/Awards"
+        id="undergraduate_honors_awards"
+        name="undergraduate_honors_awards"
+        value={formData.undergraduate_honors_awards}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Recommender 1 Name"
+        id="recommender1_name"
+        name="recommender1_name"
+        value={formData.recommender1_name}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Recommender 1 Title/Position"
+        id="recommender1_title_position"
+        name="recommender1_title_position"
+        value={formData.recommender1_title_position}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Recommender 1 Institution/Organization"
+        id="recommender1_institution_organization"
+        name="recommender1_institution_organization"
+        value={formData.recommender1_institution_organization}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Recommender 1 Email"
+        id="recommender1_email"
+        name="recommender1_email"
+        type="email"
+        value={formData.recommender1_email}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Recommender 1 Phone Number"
+        id="recommender1_phone_number"
+        name="recommender1_phone_number"
+        value={formData.recommender1_phone_number}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Recommender 2 Name"
+        id="recommender2_name"
+        name="recommender2_name"
+        value={formData.recommender2_name}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Recommender 2 Title/Position"
+        id="recommender2_title_position"
+        name="recommender2_title_position"
+        value={formData.recommender2_title_position}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Recommender 2 Institution/Organization"
+        id="recommender2_institution_organization"
+        name="recommender2_institution_organization"
+        value={formData.recommender2_institution_organization}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Recommender 2 Email"
+        id="recommender2_email"
+        name="recommender2_email"
+        type="email"
+        value={formData.recommender2_email}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Recommender 2 Phone Number"
+        id="recommender2_phone_number"
+        name="recommender2_phone_number"
+        value={formData.recommender2_phone_number}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Recommender 3 Name"
+        id="recommender3_name"
+        name="recommender3_name"
+        value={formData.recommender3_name}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Recommender 3 Title/Position"
+        id="recommender3_title_position"
+        name="recommender3_title_position"
+        value={formData.recommender3_title_position}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Recommender 3 Institution/Organization"
+        id="recommender3_institution_organization"
+        name="recommender3_institution_organization"
+        value={formData.recommender3_institution_organization}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Recommender 3 Email"
+        id="recommender3_email"
+        name="recommender3_email"
+        type="email"
+        value={formData.recommender3_email}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Recommender 3 Phone Number"
+        id="recommender3_phone_number"
+        name="recommender3_phone_number"
+        value={formData.recommender3_phone_number}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Background Influences"
+        id="background_influences"
+        name="background_influences"
+        value={formData.background_influences}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Academic Interests"
+        id="academic_interests"
+        name="academic_interests"
+        value={formData.academic_interests}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Career Goals"
+        id="career_goals"
+        name="career_goals"
+        value={formData.career_goals}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Extracurricular Activities"
+        id="extracurricular_activities"
+        name="extracurricular_activities"
+        value={formData.extracurricular_activities}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Personal Achievements"
+        id="personal_achievements"
+        name="personal_achievements"
+        value={formData.personal_achievements}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Challenges Overcoming"
+        id="challenges_overcoming"
+        name="challenges_overcoming"
+        value={formData.challenges_overcoming}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Unique Qualities"
+        id="unique_qualities"
+        name="unique_qualities"
+        value={formData.unique_qualities}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="Additional Information"
+        id="additional_information"
+        name="additional_information"
+        value={formData.additional_information}
+        onChange={handleInputChange}
+        required
+      />
+      <FormGroup
+        label="SAT/ACT Scores"
+        id="sat_act_scores"
+        name="sat_act_scores"
+        type="file"
+        onChange={handleFileChange}
+      />
+      <FormGroup
+        label="GRE/GMAT Scores"
+        id="gre_gmat_scores"
+        name="gre_gmat_scores"
+        type="file"
+        onChange={handleFileChange}
+      />
+      <FormGroup
+        label="TOEFL/IELTS Scores"
+        id="toefl_ielts_scores"
+        name="toefl_ielts_scores"
+        type="file"
+        onChange={handleFileChange}
+      />
+      <FormGroup
+        label="CV"
+        id="cv"
+        name="cv"
+        type="file"
+        onChange={handleFileChange}
+      />
+      <FormGroup
+        label="Certificates/Awards"
+        id="certificates_awards"
+        name="certificates_awards"
+        type="file"
+        onChange={handleFileChange}
+      />
+      <FormGroup
+        label="Passport ID Scan"
+        id="passport_id_scan"
+        name="passport_id_scan"
+        type="file"
+        onChange={handleFileChange}
+      />
+      <FormGroup
+        label="High School Transcript"
+        id="highschool_transcript"
+        name="highschool_transcript"
+        type="file"
+        onChange={handleFileChange}
+      />
+      <FormGroup
+        label="High School Diploma"
+        id="highschool_diploma"
+        name="highschool_diploma"
+        type="file"
+        onChange={handleFileChange}
+      />
+      <FormGroup
+        label="National Exam Result"
+        id="national_exam_result"
+        name="national_exam_result"
+        type="file"
+        onChange={handleFileChange}
+      />
+      <FormGroup
+        label="University Transcripts"
+        id="university_transcripts"
+        name="university_transcripts"
+        type="file"
+        onChange={handleFileChange}
+      />
+      <FormGroup
+        label="University Degree"
+        id="university_degree"
+        name="university_degree"
+        type="file"
+        onChange={handleFileChange}
+      />
+      <FormGroup
+        label="Work Experience"
+        id="work_experience"
+        name="work_experience"
+        type="file"
+        onChange={handleFileChange}
+      />
+      <FormGroup
+        label="Passport Size Photo"
+        id="passport_size_photo"
+        name="passport_size_photo"
+        type="file"
+        onChange={handleFileChange}
+      />
       <button
         type="submit"
-        className="w-full p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300"
+        className="mt-5 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
       >
-        Submit Application
+        Submit
       </button>
     </form>
   );

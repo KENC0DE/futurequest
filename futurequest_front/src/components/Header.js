@@ -17,26 +17,33 @@ function Header() {
 
   const paidToggle = () => {
     setIsOpen1(!isOpen1);
+    setIsOpen2(false);
   };
 
   const freeToggle = () => {
     setIsOpen2(!isOpen2);
+    setIsOpen1(false);
   };
 
   const paidWork = () => {
-    setParams({ type: "WORK", is_paid: true });
+    // setParams({ type: "WORK", is_paid: true });
+    setIsOpen1(false)
+
   };
 
   const freeWork = () => {
-    setParams({ type: "WORK", is_paid: false });
+    // setParams({ type: "WORK", is_paid: false });
+    setIsOpen2(false)
   };
 
   const paidEdu = () => {
-    setParams({ type: "EDUCATION", is_paid: true });
+    // setParams({ type: "EDUCATION", is_paid: true });
+    setIsOpen1(false)
   };
 
   const freeEdu = () => {
-    setParams({ type: "EDUCATION", is_paid: false });
+    // setParams({ type: "EDUCATION", is_paid: false });
+    setIsOpen2(false)
   };
 
   return (
@@ -84,6 +91,15 @@ function Header() {
             </span>
           </Link>
         </div>
+        <button
+          tabIndex="-1"
+          className={`fixed cursor-default h-full w-full inset-0
+                  ${isOpen1 || isOpen2 ? "show" : "hidden"}`}
+          onClick={() => {
+            setIsOpen1(false);
+            setIsOpen2(false);
+          }}
+        ></button>
 
         {/* Mobile Menu Button */}
         <button
@@ -102,7 +118,7 @@ function Header() {
         >
           <ul className="flex items-center space-x-4 gap-3">
             <li className="relative">
-              <Link
+              <button
                 onClick={paidToggle}
                 className="text-gray-600 hover:text-orange-500 relative flex"
               >
@@ -122,10 +138,9 @@ function Header() {
                     d="m1 0 4 4 4-4"
                   />
                 </svg>
-              </Link>
-
+              </button>
               <ul
-                className={`absolute bg-slate-50 p-2 rounded-lg mt-2 shadow-md
+                className={`absolute bg-slate-50 p-2 rounded-lg mt-2 shadow-md z-20
                 ${isOpen1 ? "show" : "hidden"}`}
               >
                 <li>
@@ -149,7 +164,7 @@ function Header() {
               </ul>
             </li>
             <li className="relative">
-              <Link
+              <button
                 onClick={freeToggle}
                 className="text-gray-600 hover:text-orange-500"
               >
@@ -169,9 +184,9 @@ function Header() {
                     d="m1 0 4 4 4-4"
                   />
                 </svg>
-              </Link>
+              </button>
               <ul
-                className={`absolute bg-slate-50 p-2 rounded-lg mt-2 shadow-md
+                className={`absolute bg-slate-50 p-2 rounded-lg mt-2 shadow-md z-20
                 ${isOpen2 ? "show" : "hidden"}`}
               >
                 <li>
@@ -224,6 +239,10 @@ function Header() {
               <>
                 <li>
                   <Link
+                    onClick={() => {
+                      setIsOpen1(false);
+                      setIsOpen2(false)
+                    }}
                     to="/login"
                     className="slant-button flex ml-4 items-center justify-center 
                     px-2 py-1.5 text-white bg-orange-600 hover:bg-red-700 

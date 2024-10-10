@@ -2,14 +2,17 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getOfferDetails } from "../api";
 import { Link } from "react-router-dom";
+import { useOffers } from "../OffersContext";
 
 const OfferDetails = () => {
   const { id } = useParams();
   const [error, setError] = useState(null);
   const [OfferDetails, setOfferDetails] = useState();
   const navigate = useNavigate();
+  const { setSelectedOfferId } = useOffers();
 
   const handleApplyClick = () => {
+    setSelectedOfferId(id);
     navigate("/apply");
   };
 

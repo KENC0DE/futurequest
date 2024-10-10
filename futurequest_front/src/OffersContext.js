@@ -6,9 +6,10 @@ export const useOffers = () => useContext(OffersContext);
 
 export const OffersProvider = ({ children }) => {
   const [params, setParams] = useState({});
+  const [selectedOfferId, setSelectedOfferId] = useState(null);
 
   return (
-    <OffersContext.Provider value={{ params, setParams }}>
+    <OffersContext.Provider value={{ params, setParams, selectedOfferId, setSelectedOfferId }}>
       {children}
     </OffersContext.Provider>
   );

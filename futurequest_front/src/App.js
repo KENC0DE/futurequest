@@ -29,15 +29,13 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route element={<PrivateRoute />}>
-            <Route path="profile" element={<Profile />} />
-            <Route path="logout" element={<Logout />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/apply" element={<ApplicationForm />} />
           </Route>
-          <Route path="/students/1" element={<Profile />} />
           <Route path="/offers" element={<Offers />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<SignUpForm />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/apply" element={<ApplicationForm />} />
           <Route path="/offer-details/:id/" element={<OfferDetails />} />
           <Route path="/work" element={<Work />} />
           <Route path="/education" element={<Education />} />
