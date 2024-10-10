@@ -1,46 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import StudentProfile from "./StudentProfile";
-
-const user = {
-  name: "Jane Doe",
-  avatar: "https://via.placeholder.com/150",
-};
-
-const studentData = {
-  profilePicture: "https://example.com/path/to/profile-picture.jpg", // Replace with actual URL
-  fullName: "John Doe",
-  dateOfBirth: "1995-05-15",
-  gender: "Male",
-  nationality: "USA",
-  passportNumber: "ABC123456",
-  phoneNumber: "+1 234 567 8901",
-  email: "john.doe@example.com",
-  address: "123 Main St, Anytown, USA",
-  universityName: "Example University",
-  degreeAwarded: "Bachelor of Science",
-  universityGPA: "3.8",
-  universityMajors: "Computer Science",
-};
-
-const handleEdit = () => {
-  console.log("Edit button clicked");
-};
+import { listApplications } from "../api";
 
 const Profile = () => {
+  const [applications, setApplications] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchApplications = async () => {
+      try {
+        const response = await listApplications();
+        setApplications(response.data);
+      } catch (error) {
+        console.error("Error fetching applications:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchApplications();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (applications.length === 0) {
+    return <div>No applications found.</div>;
+  }
+
   return (
-    <div className="flex justify-center p-4 bg-gray-200">
-      <div className="w-1/4 max-w-xs min-w-[250px] m-auto p-5 text-center bg-white rounded-lg shadow-md">
-        <img
-          className="w-36 h-36 rounded-full mx-auto mb-4"
-          src={user.avatar}
-          alt={`${user.name}'s Avatar`}
-        />
-        <h1 className="text-xl font-semibold">{user.name}</h1>
+    <div className="flex flex-col lg:flex-row justify-center p-4 bg-gray-200">
+      <div className="w-full lg:w-1/4 mb-4 lg:mb-0">
+        <div className="flex flex-col items-center mx-auto p-5 text-center bg-white rounded-lg shadow-md max-w-xs min-w-[250px]">
+          <img
+            className="w-36 h-36 rounded-full mb-4"
+            src={
+              `${process.env.REACT_APP_API_URL}${applications[0].passport_size_photo}` ||
+              "https://via.placeholder.com/150"
+            }
+            alt={`${applications[0].full_name}'s Avatar`}
+          />
+          <h1 className="text-xl font-semibold">{applications[0].full_name}</h1>
+        </div>
       </div>
-      <div className="flex-grow max-w-4xl p-10 bg-white shadow-lg border">
+      <div className="flex-grow max-w-4xl p-4 lg:p-10 bg-white shadow-lg border">
         <StudentProfile
-          studentData={studentData}
-          onEdit={handleEdit}
+          studentData={applications[0]}
+          onEdit={() => console.log("Edit button clicked")}
           showEditButton={true}
         />
       </div>

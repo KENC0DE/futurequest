@@ -41,12 +41,12 @@ const Work = () => {
           offers.map((offer) => (
             <div
               key={offer.id}
-              className="bg-red-800 rounded p-4 max-w-[250px] shadow-md text-center transition-transform duration-300 ease-in-out relative hover:-translate-y-1.5 cursor-pointer"
+              className="bg-orange-600 rounded p-4 max-w-[250px] shadow-md text-center transition-transform duration-300 ease-in-out relative hover:-translate-y-1.5 cursor-pointer"
               onClick={() => offerClick(navigate, offer.id)}
             >
               <div className="mb-4">
                 <img
-                  src={offer.image}
+                  src={`${process.env.REACT_APP_API_URL}${offer.image}`}
                   alt={offer.name}
                   className="w-full min-w-36 h-40 object-cover rounded-md bg-gray-100"
                 />

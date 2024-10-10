@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaTwitter, FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 import { useAuth } from "../AuthContext";
 import { useOffers } from "../OffersContext";
+import { ReactComponent as Logo } from "../images/logo.svg";
 
 function Header() {
   const { user } = useAuth();
@@ -27,23 +28,22 @@ function Header() {
 
   const paidWork = () => {
     // setParams({ type: "WORK", is_paid: true });
-    setIsOpen1(false)
-
+    setIsOpen1(false);
   };
 
   const freeWork = () => {
     // setParams({ type: "WORK", is_paid: false });
-    setIsOpen2(false)
+    setIsOpen2(false);
   };
 
   const paidEdu = () => {
     // setParams({ type: "EDUCATION", is_paid: true });
-    setIsOpen1(false)
+    setIsOpen1(false);
   };
 
   const freeEdu = () => {
     // setParams({ type: "EDUCATION", is_paid: false });
-    setIsOpen2(false)
+    setIsOpen2(false);
   };
 
   return (
@@ -82,14 +82,19 @@ function Header() {
           </div>
         </div>
         <div className="m-auto">
-          <Link to="/" className="text-blue-500 mr-4 flex">
+          {/* <Link to="/" className="text-blue-500 mr-4 flex">
             <span className="slt-btn flex items-center justify-center px-2 py-1 text-white bg-orange-600 hover:bg-red-700 rounded shadow transform skew[-20deg] transition-transform duration-300">
               Future
             </span>{" "}
             <span className="slt-btn flex items-center justify-center px-4 py-2 text-white bg-gray-800 hover:bg-gray-700 rounded shadow transform skew[-20deg] transition-transform duration-300">
               Quest
             </span>
-          </Link>
+          </Link> */}
+          <div className="m-auto overflow-hidden h-12 w-80">
+            <Link to="/" className="text-blue-500 mr-4 flex">
+              <Logo className="h-full w-full" />
+            </Link>
+          </div>
         </div>
         <button
           tabIndex="-1"
@@ -241,7 +246,7 @@ function Header() {
                   <Link
                     onClick={() => {
                       setIsOpen1(false);
-                      setIsOpen2(false)
+                      setIsOpen2(false);
                     }}
                     to="/login"
                     className="slant-button flex ml-4 items-center justify-center 
