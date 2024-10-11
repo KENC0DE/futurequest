@@ -376,129 +376,144 @@ const ApplicationForm = () => {
         onChange={handleInputChange}
         required
       />
-      <FormGroup
-        label="Recommender 1 Name"
-        id="recommender1_name"
-        name="recommender1_name"
-        value={formData.recommender1_name}
-        onChange={handleInputChange}
-        required
-      />
-      <FormGroup
-        label="Recommender 1 Title/Position"
-        id="recommender1_title_position"
-        name="recommender1_title_position"
-        value={formData.recommender1_title_position}
-        onChange={handleInputChange}
-        required
-      />
-      <FormGroup
-        label="Recommender 1 Institution/Organization"
-        id="recommender1_institution_organization"
-        name="recommender1_institution_organization"
-        value={formData.recommender1_institution_organization}
-        onChange={handleInputChange}
-        required
-      />
-      <FormGroup
-        label="Recommender 1 Email"
-        id="recommender1_email"
-        name="recommender1_email"
-        type="email"
-        value={formData.recommender1_email}
-        onChange={handleInputChange}
-        required
-      />
-      <FormGroup
-        label="Recommender 1 Phone Number"
-        id="recommender1_phone_number"
-        name="recommender1_phone_number"
-        value={formData.recommender1_phone_number}
-        onChange={handleInputChange}
-        required
-      />
-      <FormGroup
-        label="Recommender 2 Name"
-        id="recommender2_name"
-        name="recommender2_name"
-        value={formData.recommender2_name}
-        onChange={handleInputChange}
-        required
-      />
-      <FormGroup
-        label="Recommender 2 Title/Position"
-        id="recommender2_title_position"
-        name="recommender2_title_position"
-        value={formData.recommender2_title_position}
-        onChange={handleInputChange}
-        required
-      />
-      <FormGroup
-        label="Recommender 2 Institution/Organization"
-        id="recommender2_institution_organization"
-        name="recommender2_institution_organization"
-        value={formData.recommender2_institution_organization}
-        onChange={handleInputChange}
-        required
-      />
-      <FormGroup
-        label="Recommender 2 Email"
-        id="recommender2_email"
-        name="recommender2_email"
-        type="email"
-        value={formData.recommender2_email}
-        onChange={handleInputChange}
-        required
-      />
-      <FormGroup
-        label="Recommender 2 Phone Number"
-        id="recommender2_phone_number"
-        name="recommender2_phone_number"
-        value={formData.recommender2_phone_number}
-        onChange={handleInputChange}
-        required
-      />
-      <FormGroup
-        label="Recommender 3 Name"
-        id="recommender3_name"
-        name="recommender3_name"
-        value={formData.recommender3_name}
-        onChange={handleInputChange}
-        required
-      />
-      <FormGroup
-        label="Recommender 3 Title/Position"
-        id="recommender3_title_position"
-        name="recommender3_title_position"
-        value={formData.recommender3_title_position}
-        onChange={handleInputChange}
-        required
-      />
-      <FormGroup
-        label="Recommender 3 Institution/Organization"
-        id="recommender3_institution_organization"
-        name="recommender3_institution_organization"
-        value={formData.recommender3_institution_organization}
-        onChange={handleInputChange}
-        required
-      />
-      <FormGroup
-        label="Recommender 3 Email"
-        id="recommender3_email"
-        name="recommender3_email"
-        type="email"
-        value={formData.recommender3_email}
-        onChange={handleInputChange}
-        required
-      />
-      <FormGroup
-        label="Recommender 3 Phone Number"
-        id="recommender3_phone_number"
-        name="recommender3_phone_number"
-        value={formData.recommender3_phone_number}
-        onChange={handleInputChange}
-        required
-      />
+      <div className="p-4 border-2 border-orange-500 mt-2">
+        <h2 className="p-2 border-2 border-orange-300 font-bold dark:text-white">
+          Recommender 1
+        </h2>
+        <FormGroup
+          label="Name"
+          id="recommender1_name"
+          name="recommender1_name"
+          value={formData.recommender1_name}
+          onChange={handleInputChange}
+          required
+        />
+        <FormGroup
+          label="Title/Position"
+          id="recommender1_title_position"
+          name="recommender1_title_position"
+          value={formData.recommender1_title_position}
+          onChange={handleInputChange}
+          required
+        />
+        <FormGroup
+          label="Institution/Organization"
+          id="recommender1_institution_organization"
+          name="recommender1_institution_organization"
+          value={formData.recommender1_institution_organization}
+          onChange={handleInputChange}
+          required
+        />
+        <FormGroup
+          label="Email"
+          id="recommender1_email"
+          name="recommender1_email"
+          type="email"
+          value={formData.recommender1_email}
+          onChange={handleInputChange}
+          required
+        />
+        <FormGroup
+          label="Phone Number"
+          id="recommender1_phone_number"
+          name="recommender1_phone_number"
+          value={formData.recommender1_phone_number}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
+      <div className="p-4 border-2 border-orange-500 mt-2">
+        <h2 className="p-2 border-2 border-orange-300 font-bold dark:text-white">
+          Recommender 2
+        </h2>
+        <FormGroup
+          label="Name"
+          id="recommender2_name"
+          name="recommender2_name"
+          value={formData.recommender2_name}
+          onChange={handleInputChange}
+          required
+        />
+        <FormGroup
+          label="Title/Position"
+          id="recommender2_title_position"
+          name="recommender2_title_position"
+          value={formData.recommender2_title_position}
+          onChange={handleInputChange}
+          required
+        />
+        <FormGroup
+          label="Institution/Organization"
+          id="recommender2_institution_organization"
+          name="recommender2_institution_organization"
+          value={formData.recommender2_institution_organization}
+          onChange={handleInputChange}
+          required
+        />
+        <FormGroup
+          label="Email"
+          id="recommender2_email"
+          name="recommender2_email"
+          type="email"
+          value={formData.recommender2_email}
+          onChange={handleInputChange}
+          required
+        />
+        <FormGroup
+          label="Phone Number"
+          id="recommender2_phone_number"
+          name="recommender2_phone_number"
+          value={formData.recommender2_phone_number}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
+      <div className="p-4 border-2 border-orange-500 mt-2">
+        <h2 className="p-2 border-2 border-orange-300 font-bold dark:text-white">
+          Recommender 3
+        </h2>
+        <FormGroup
+          label="Name"
+          id="recommender3_name"
+          name="recommender3_name"
+          value={formData.recommender3_name}
+          onChange={handleInputChange}
+          required
+        />
+        <FormGroup
+          label="Title/Position"
+          id="recommender3_title_position"
+          name="recommender3_title_position"
+          value={formData.recommender3_title_position}
+          onChange={handleInputChange}
+          required
+        />
+        <FormGroup
+          label="Institution/Organization"
+          id="recommender3_institution_organization"
+          name="recommender3_institution_organization"
+          value={formData.recommender3_institution_organization}
+          onChange={handleInputChange}
+          required
+        />
+        <FormGroup
+          label="Email"
+          id="recommender3_email"
+          name="recommender3_email"
+          type="email"
+          value={formData.recommender3_email}
+          onChange={handleInputChange}
+          required
+        />
+        <FormGroup
+          label="Phone Number"
+          id="recommender3_phone_number"
+          name="recommender3_phone_number"
+          value={formData.recommender3_phone_number}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
       <FormGroup
         label="Background Influences"
         id="background_influences"

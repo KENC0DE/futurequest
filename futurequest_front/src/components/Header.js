@@ -54,36 +54,36 @@ function Header() {
             {/* Dark Mode Toggle Button */}
             <button
               onClick={toggleDarkMode}
-              className="text-gray-600 dark:text-gray-300 focus:outline-none"
+              className="text-white dark:text-gray-800 dark:bg-white focus:outline-none rounded-full bg-slate-800 border-2"
               aria-label="Toggle Dark Mode"
             >
-              {darkMode ? "Light Mode" : "Dark Mode"}
+              {darkMode ? "Light" : "Dark"}
             </button>
             <a
               href="#"
               aria-label="Twitter"
-              className="text-gray-600 dark:text-gray-300 hover:text-blue-500"
+              className="text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-500"
             >
               <FaTwitter size={24} />
             </a>
             <a
               href="#"
               aria-label="Facebook"
-              className="text-gray-600 dark:text-gray-300 hover:text-blue-500"
+              className="text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-500"
             >
               <FaFacebook size={24} />
             </a>
             <a
               href="#"
               aria-label="Instagram"
-              className="text-gray-600 dark:text-gray-300 hover:text-blue-500"
+              className="text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-500"
             >
               <FaInstagram size={24} />
             </a>
             <a
               href="#"
               aria-label="YouTube"
-              className="text-gray-600 dark:text-gray-300 hover:text-blue-500"
+              className="text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-500"
             >
               <FaYoutube size={24} />
             </a>
