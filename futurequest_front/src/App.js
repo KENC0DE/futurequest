@@ -12,7 +12,7 @@ import Offers from "./components/Offers";
 import OfferDetails from "./components/OfferDetails";
 import Work from "./components/Work";
 import Education from "./components/Education";
-import Free from "./components/Free";
+import Free from "./unused/Free";
 import { AuthProvider } from "./AuthContext";
 import SignUpForm from "./components/SignUpForm";
 import LoginForm from "./components/LoginForm";
@@ -20,12 +20,14 @@ import PrivateRoute from "./PrivateRoute";
 import Logout from "./components/Logout";
 import Home from "./components/Home";
 import { OffersProvider } from "./OffersContext";
+import { useOffers } from "./OffersContext";
 
 function AppContent() {
+  const { darkMode } = useOffers();
   return (
-    <div className="App flex flex-col">
+    <div className={`App flex flex-col ${darkMode ? "dark" : ""}`}>
       <Header />
-      <main className="mt-14">
+      <main className="mt-14 dark:bg-slate-950">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route element={<PrivateRoute />}>

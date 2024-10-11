@@ -7,9 +7,10 @@ export const useOffers = () => useContext(OffersContext);
 export const OffersProvider = ({ children }) => {
   const [params, setParams] = useState({});
   const [selectedOfferId, setSelectedOfferId] = useState(null);
+  const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <OffersContext.Provider value={{ params, setParams, selectedOfferId, setSelectedOfferId }}>
+    <OffersContext.Provider value={{ params, setParams, selectedOfferId, setSelectedOfferId, darkMode, setDarkMode }}>
       {children}
     </OffersContext.Provider>
   );

@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { createApplication } from "../api";
 
-
 const Section = ({ title, children }) => (
-  <section className="mb-8 bg-white p-5 rounded-lg shadow">
-    <h2 className="text-xl font-semibold text-blue-600 border-b-2 border-blue-400 pb-2 mb-5">
+  <section className="mb-8 bg-white dark:bg-gray-800 p-5 rounded-lg shadow">
+    <h2 className="text-xl font-semibold text-blue-600 dark:text-blue-400 border-b-2 border-blue-400 pb-2 mb-5">
       {title}
     </h2>
     {children}
   </section>
 );
-
 
 const FormGroup = ({
   label,
@@ -24,7 +22,10 @@ const FormGroup = ({
   children,
 }) => (
   <div className="mb-4">
-    <label htmlFor={id} className="block mb-2 font-bold text-gray-700">
+    <label
+      htmlFor={id}
+      className="block mb-2 font-bold text-gray-700 dark:text-gray-300"
+    >
       {label}
     </label>
     {!children ? (
@@ -35,7 +36,8 @@ const FormGroup = ({
         value={value}
         onChange={onChange}
         required={required}
-        className="w-full p-2.5 border border-gray-300 rounded-md text-base focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+        className="w-full p-2.5 border border-gray-300 dark:border-gray-600 rounded-md text-base 
+        focus:outline-none focus:border-orange-500 dark:focus:border-orange-500 dark:bg-gray-700 dark:text-gray-300"
         accept={accept}
       />
     ) : (
@@ -189,9 +191,9 @@ const ApplicationForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-4xl mx-auto p-5 bg-gray-100 rounded-lg shadow"
+      className="max-w-4xl mx-auto p-5 bg-gray-100 dark:bg-slate-800 rounded-lg shadow"
     >
-      <h1 className="text-center text-2xl text-gray-800 mb-5">
+      <h1 className="text-center text-2xl text-gray-800 bg-white dark:text-white dark:bg-gray-500 rounded-lg py-2 mb-5">
         Prospective Student University Application Form
       </h1>
       <FormGroup
@@ -654,7 +656,7 @@ const ApplicationForm = () => {
       />
       <button
         type="submit"
-        className="mt-5 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+        className="mt-5 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600"
       >
         Submit
       </button>

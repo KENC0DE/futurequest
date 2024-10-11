@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { FaTwitter, FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 import { useAuth } from "../AuthContext";
 import { useOffers } from "../OffersContext";
-import { ReactComponent as Logo } from "../images/logo.svg";
+import { ReactComponent as Logo } from "../images/logo.svg"; // Adjust the path accordingly
 
 function Header() {
   const { user } = useAuth();
-  const { setParams } = useOffers();
+  const { setParams, darkMode, setDarkMode } = useOffers();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
@@ -27,74 +27,74 @@ function Header() {
   };
 
   const paidWork = () => {
-    // setParams({ type: "WORK", is_paid: true });
     setIsOpen1(false);
   };
 
   const freeWork = () => {
-    // setParams({ type: "WORK", is_paid: false });
     setIsOpen2(false);
   };
 
   const paidEdu = () => {
-    // setParams({ type: "EDUCATION", is_paid: true });
     setIsOpen1(false);
   };
 
   const freeEdu = () => {
-    // setParams({ type: "EDUCATION", is_paid: false });
     setIsOpen2(false);
   };
 
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
-    <header className="bg-white shadow fixed z-50 w-full">
+    <header
+      className="bg-white dark:bg-gray-800 shadow fixed z-50 w-full"
+    >
       <nav className="flex justify-between items-center p-3">
         <div className="flex items-center">
           <div className="hidden md:flex space-x-2">
+             {/* Dark Mode Toggle Button */}
+              <button
+                onClick={toggleDarkMode}
+                className="text-gray-600 dark:text-gray-300 focus:outline-none"
+                aria-label="Toggle Dark Mode"
+              >
+                {darkMode ? "Light Mode" : "Dark Mode"}
+              </button>
             <a
               href="#"
               aria-label="Twitter"
-              className="text-gray-600 hover:text-blue-500"
+              className="text-gray-600 dark:text-gray-300 hover:text-blue-500"
             >
               <FaTwitter size={24} />
             </a>
             <a
               href="#"
               aria-label="Facebook"
-              className="text-gray-600 hover:text-blue-500"
+              className="text-gray-600 dark:text-gray-300 hover:text-blue-500"
             >
               <FaFacebook size={24} />
             </a>
             <a
               href="#"
               aria-label="Instagram"
-              className="text-gray-600 hover:text-blue-500"
+              className="text-gray-600 dark:text-gray-300 hover:text-blue-500"
             >
               <FaInstagram size={24} />
             </a>
             <a
               href="#"
               aria-label="YouTube"
-              className="text-gray-600 hover:text-blue-500"
+              className="text-gray-600 dark:text-gray-300 hover:text-blue-500"
             >
               <FaYoutube size={24} />
             </a>
           </div>
         </div>
         <div className="m-auto">
-          {/* <Link to="/" className="text-blue-500 mr-4 flex">
-            <span className="slt-btn flex items-center justify-center px-2 py-1 text-white bg-orange-600 hover:bg-red-700 rounded shadow transform skew[-20deg] transition-transform duration-300">
-              Future
-            </span>{" "}
-            <span className="slt-btn flex items-center justify-center px-4 py-2 text-white bg-gray-800 hover:bg-gray-700 rounded shadow transform skew[-20deg] transition-transform duration-300">
-              Quest
-            </span>
-          </Link> */}
-          <div className="m-auto overflow-hidden h-12 w-80">
-            <Link to="/" className="text-blue-500 mr-4 flex">
-              <Logo className="h-full w-full" />
-            </Link>
-          </div>
+          <Link to="/" className="text-blue-500 dark:text-blue-400 mr-4 flex">
+            <Logo className="h-8 w-8" />
+          </Link>
         </div>
         <button
           tabIndex="-1"
@@ -108,7 +108,7 @@ function Header() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-gray-600 focus:outline-none"
+          className="md:hidden text-gray-600 dark:text-gray-300 focus:outline-none"
           onClick={toggleMenu}
           aria-label="Toggle Menu"
         >
@@ -125,7 +125,7 @@ function Header() {
             <li className="relative">
               <button
                 onClick={paidToggle}
-                className="text-gray-600 hover:text-orange-500 relative flex"
+                className="text-gray-600 dark:text-gray-300 hover:text-orange-500 relative flex"
               >
                 Paid
                 <svg
@@ -145,14 +145,14 @@ function Header() {
                 </svg>
               </button>
               <ul
-                className={`absolute bg-slate-50 p-2 rounded-lg mt-2 shadow-md z-20
+                className={`absolute bg-slate-50 dark:bg-gray-700 p-2 rounded-lg mt-2 shadow-md z-20
                 ${isOpen1 ? "show" : "hidden"}`}
               >
                 <li>
                   <Link
                     to="/work?type=WORK&is_paid=true"
                     onClick={paidWork}
-                    className="text-gray-600 hover:text-blue-500 px-4 py-2"
+                    className="text-gray-600 dark:text-gray-300 hover:text-blue-500 px-4 py-2"
                   >
                     Work
                   </Link>
@@ -161,7 +161,7 @@ function Header() {
                   <Link
                     to="/education?type=EDUCATION&is_paid=true"
                     onClick={paidEdu}
-                    className="text-gray-600 hover:text-blue-500 px-4 py-2"
+                    className="text-gray-600 dark:text-gray-300 hover:text-blue-500 px-4 py-2"
                   >
                     Education
                   </Link>
@@ -171,7 +171,7 @@ function Header() {
             <li className="relative">
               <button
                 onClick={freeToggle}
-                className="text-gray-600 hover:text-orange-500"
+                className="text-gray-600 dark:text-gray-300 hover:text-orange-500"
               >
                 Free
                 <svg
@@ -191,14 +191,14 @@ function Header() {
                 </svg>
               </button>
               <ul
-                className={`absolute bg-slate-50 p-2 rounded-lg mt-2 shadow-md z-20
+                className={`absolute bg-slate-50 dark:bg-gray-700 p-2 rounded-lg mt-2 shadow-md z-20
                 ${isOpen2 ? "show" : "hidden"}`}
               >
                 <li>
                   <Link
                     to="/work?type=WORK&is_paid=false"
                     onClick={freeWork}
-                    className="text-gray-600 hover:text-blue-500 px-4 py-2"
+                    className="text-gray-600 dark:text-gray-300 hover:text-blue-500 px-4 py-2"
                   >
                     Work
                   </Link>
@@ -207,7 +207,7 @@ function Header() {
                   <Link
                     to="/education?type=EDUCATION&is_paid=false"
                     onClick={freeEdu}
-                    className="text-gray-600 hover:text-blue-500 px-4 py-2"
+                    className="text-gray-600 dark:text-gray-300 hover:text-blue-500 px-4 py-2"
                   >
                     Education
                   </Link>
@@ -215,7 +215,10 @@ function Header() {
               </ul>
             </li>
             <li>
-              <Link className="text-gray-600 hover:text-orange-500">
+              <Link
+                to="/resource"
+                className="text-gray-600 dark:text-gray-300 hover:text-orange-500"
+              >
                 Resource
               </Link>
             </li>
@@ -224,7 +227,7 @@ function Header() {
                 <li>
                   <Link
                     to="/profile"
-                    className="text-gray-600 hover:text-blue-500"
+                    className="text-gray-600 dark:text-gray-300 hover:text-blue-500"
                   >
                     Profile
                   </Link>

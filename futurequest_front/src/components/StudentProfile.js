@@ -90,12 +90,12 @@ const StudentProfile = ({ studentData, onEdit, showEditButton }) => {
   console.log("studentData:", studentData);
 
   return (
-    <div className="bg-white p-6 max-w-4xl mx-auto rounded-lg shadow-xl">
+    <div className="bg-gray-100 dark:bg-slate-700 dark:text-white p-6 max-w-4xl mx-auto rounded-lg shadow-xl">
       <div className="flex flex-col items-center mb-6 text-center relative sm:flex-row sm:text-left sm:items-start">
         <img
           src={`${process.env.REACT_APP_API_URL}${studentData.passport_size_photo} || https://via.placeholder.com/150`}
           alt={`${studentData.full_name}'s profile`}
-          className="w-36 h-36 rounded-full border-4 border-gray-200 mb-4 sm:mr-6"
+          className="w-36 h-36 rounded-full border-4 border-gray-300 mb-4 sm:mr-6"
         />
         <h1 className="text-2xl font-bold">{`${studentData.full_name}'s Profile`}</h1>
         {showEditButton && (
@@ -111,11 +111,11 @@ const StudentProfile = ({ studentData, onEdit, showEditButton }) => {
         {Object.keys(fieldLabels).map((key) => {
           if (key === "profilePicture" || key === "id") return null;
           return (
-            <div key={key} className="bg-gray-100 p-4 rounded-lg">
-              <div className="font-bold text-gray-700 mb-1">
+            <div key={key} className="bg-white border-2 border-gray-400 dark:bg-slate-600 p-4 rounded-lg">
+              <div className="font-bold text-gray-700 dark:text-white mb-1">
                 {fieldLabels[key]}
               </div>
-              <div className="text-gray-800">
+              <div className="text-gray-800 dark:text-white">
                 {key === "offer" ? offerTitle : studentData[key]}
               </div>
             </div>
