@@ -21,6 +21,7 @@ import Logout from "./components/Logout";
 import Home from "./components/Home";
 import { OffersProvider } from "./OffersContext";
 import { useOffers } from "./OffersContext";
+import Resource from "./components/Resource";
 
 function AppContent() {
   const { darkMode } = useOffers();
@@ -42,6 +43,7 @@ function AppContent() {
           <Route path="/work" element={<Work />} />
           <Route path="/education" element={<Education />} />
           <Route path="/free" element={<Free />} />
+          <Route path="/resource" element={<Resource />} />
         </Routes>
       </main>
     </div>

@@ -47,20 +47,18 @@ function Header() {
   };
 
   return (
-    <header
-      className="bg-white dark:bg-gray-800 shadow fixed z-50 w-full"
-    >
+    <header className="bg-white dark:bg-gray-800 shadow fixed z-50 w-full">
       <nav className="flex justify-between items-center p-3">
         <div className="flex items-center">
           <div className="hidden md:flex space-x-2">
-             {/* Dark Mode Toggle Button */}
-              <button
-                onClick={toggleDarkMode}
-                className="text-gray-600 dark:text-gray-300 focus:outline-none"
-                aria-label="Toggle Dark Mode"
-              >
-                {darkMode ? "Light Mode" : "Dark Mode"}
-              </button>
+            {/* Dark Mode Toggle Button */}
+            <button
+              onClick={toggleDarkMode}
+              className="text-gray-600 dark:text-gray-300 focus:outline-none"
+              aria-label="Toggle Dark Mode"
+            >
+              {darkMode ? "Light Mode" : "Dark Mode"}
+            </button>
             <a
               href="#"
               aria-label="Twitter"
@@ -234,9 +232,17 @@ function Header() {
                 </li>
                 <li>
                   <Link
+                    to="/about-us"
+                    className="text-gray-600 dark:text-gray-300 hover:text-orange-500"
+                  >
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     to="/logout"
                     className="slant-button flex ml-4 items-center justify-center px-2 py-1.5 
-                    text-white bg-orange-600 hover:bg-red-700 rounded shadow transform 
+                    text-white bg-orange-600 hover:bg-orange-700 rounded shadow transform 
                     skew[-20deg] transition-transform duration-300"
                   >
                     Logout
@@ -247,13 +253,21 @@ function Header() {
               <>
                 <li>
                   <Link
+                    to="/about-us"
+                    className="text-gray-600 dark:text-gray-300 hover:text-orange-500"
+                  >
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     onClick={() => {
                       setIsOpen1(false);
                       setIsOpen2(false);
                     }}
                     to="/login"
                     className="slant-button flex ml-4 items-center justify-center 
-                    px-2 py-1.5 text-white bg-orange-600 hover:bg-red-700 
+                    px-2 py-1.5 text-white bg-orange-600 hover:bg-orange-700 
                     rounded shadow transform skew[-20deg] transition-transform duration-300"
                   >
                     Sign In/Up
