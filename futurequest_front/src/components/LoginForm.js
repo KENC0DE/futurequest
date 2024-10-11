@@ -14,7 +14,10 @@ const LoginForm = () => {
     setError("");
     try {
       await login({ username, password });
-      navigate("/");
+      const intendedDestination =
+        localStorage.getItem("intendedDestination") || "/";
+      localStorage.removeItem("intendedDestination");
+      navigate(intendedDestination);
     } catch (err) {
       setPassword("");
       setError("Failed to log in: Check username or password");
@@ -27,7 +30,9 @@ const LoginForm = () => {
       <div className="max-w-[350px] w-full p-8 shadow-lg rounded-lg dark:bg-[#1e1e1e] bg-gray-50 transition-all duration-300 ease-in-out hover:-translate-y-1.5 hover:shadow-2xl">
         <h2 className="text-center text-[#f7a224] mb-5 text-2xl">Login</h2>
         <form onSubmit={handleSubmit} className="flex flex-col">
-          {isLoading && <p className="text-center text-gray-300">Loading ...</p>}
+          {isLoading && (
+            <p className="text-center text-gray-300">Loading ...</p>
+          )}
           {error && <p className="text-center text-red-500 mb-2">{error}</p>}
           <input
             type="text"

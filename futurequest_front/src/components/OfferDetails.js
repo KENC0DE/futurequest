@@ -13,6 +13,7 @@ const OfferDetails = () => {
 
   const handleApplyClick = () => {
     setSelectedOfferId(id);
+    localStorage.setItem("intendedDestination", "/apply");
     navigate("/apply");
   };
 

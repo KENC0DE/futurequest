@@ -71,6 +71,21 @@ const StudentProfile = ({ studentData, onEdit, showEditButton }) => {
     passport_size_photo: "Passport Size Photo",
   };
 
+  const fileFields = [
+    "sat_act_scores",
+    "gre_gmat_scores",
+    "toefl_ielts_scores",
+    "cv",
+    "certificates_awards",
+    "passport_id_scan",
+    "highschool_transcript",
+    "highschool_diploma",
+    "national_exam_result",
+    "university_transcripts",
+    "university_degree",
+    "work_experience",
+  ];
+
   useEffect(() => {
     if (studentData.offer) {
       getOfferDetails(studentData.offer)
@@ -111,12 +126,34 @@ const StudentProfile = ({ studentData, onEdit, showEditButton }) => {
         {Object.keys(fieldLabels).map((key) => {
           if (key === "profilePicture" || key === "id") return null;
           return (
-            <div key={key} className="bg-white border-2 border-gray-400 dark:bg-slate-600 p-4 rounded-lg">
+            <div
+              key={key}
+              className="bg-white border-2 border-gray-400 dark:bg-slate-600 p-4 rounded-lg"
+            >
               <div className="font-bold text-gray-700 dark:text-white mb-1">
                 {fieldLabels[key]}
               </div>
               <div className="text-gray-800 dark:text-white">
-                {key === "offer" ? offerTitle : studentData[key]}
+                {key === "offer" ? (
+                  offerTitle
+                ) : fileFields.includes(key) ? (
+                  <a
+                    href={`${process.env.REACT_APP_API_URL}${studentData[key]}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:underline"
+                  >
+                    View {fieldLabels[key]}
+                  </a>
+                ) : key === "passport_size_photo" ? (
+                  <img
+                    src={`${process.env.REACT_APP_API_URL}${studentData[key]}`}
+                    alt={fieldLabels[key]}
+                    className="w-36 h-36 rounded-full border-4 border-gray-300"
+                  />
+                ) : (
+                  studentData[key]
+                )}
               </div>
             </div>
           );
