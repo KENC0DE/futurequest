@@ -4,6 +4,10 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      transitionProperty: {
+        bg: "background-color",
+        'text-colors': 'color, text-decoration-color',
+      },
       colors: {
         "dark-bg": "#121212",
         "auth-bg": "#1e1e1e",

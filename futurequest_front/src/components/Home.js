@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  FaShoppingBag,
-  FaYoutube,
-  FaTwitter,
-  FaFacebook,
-  FaInstagram,
-  FaYoutube as FaYoutubeIcon,
+  FaGraduationCap,
+  FaBriefcase,
 } from "react-icons/fa";
 
 function Home() {
@@ -30,13 +26,13 @@ function Home() {
           <div className="flex justify-center gap-4">
             <Link to="/education">
               <button className="slanted-button flex items-center justify-center px-4 py-2 text-white bg-orange-600 hover:bg-orange-700 rounded shadow transform skew[-20deg] transition-transform duration-300">
-                <FaShoppingBag className="mr-2 transform skew[20deg]" />
+                <FaGraduationCap className="mr-2 transform skew[20deg]" size={24}/>
                 Education
               </button>
             </Link>
             <Link to="/work">
-              <button className="slanted-button flex items-center justify-center px-4 py-2 text-white bg-gray-800 hover:bg-gray-700 rounded shadow transform skew[-20deg] transition-transform duration-300">
-                <FaYoutube className="mr-2 transform skew[20deg]" />
+              <button className="slanted-button flex items-center justify-center px-4 py-2 text-white bg-gray-800 dark:bg-white dark:text-slate-900 hover:bg-gray-700 rounded shadow transform skew[-20deg] transition-transform duration-300">
+                <FaBriefcase className="mr-2 transform skew[20deg]" size={24}/>
                 Work
               </button>
             </Link>

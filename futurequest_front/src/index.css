@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+    @apply transition-bg duration-200
+}
+
+* {
+    @apply transition-text-colors duration-75
+}
