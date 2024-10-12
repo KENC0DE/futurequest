@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaTwitter, FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 import { useAuth } from "../AuthContext";
@@ -11,6 +11,11 @@ function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
+
+  useEffect(() => {
+    const savedDarkMode = localStorage.getItem("darkMode") === "true";
+    setDarkMode(savedDarkMode);
+  }, [setDarkMode]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -43,7 +48,9 @@ function Header() {
   };
 
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
+    const newDarkMode = !darkMode;
+    setDarkMode(newDarkMode);
+    localStorage.setItem("darkMode", newDarkMode);
   };
 
   return (
