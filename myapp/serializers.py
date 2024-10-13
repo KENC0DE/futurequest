@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from .customs.offers import Offers
 from .customs.applications import ApplicationForm, PersonalInformation, ContactInformation, EducationalBackground, Recommenders, PersonalStatements, Documents
 
+
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
@@ -16,40 +17,48 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+
 class OffersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Offers
         fields = '__all__'
+
 
 class PersonalInformationSerializer(serializers.ModelSerializer):
     class Meta:
         model = PersonalInformation
         fields = '__all__'
 
+
 class ContactInformationSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactInformation
         fields = '__all__'
+
 
 class EducationalBackgroundSerializer(serializers.ModelSerializer):
     class Meta:
         model = EducationalBackground
         fields = '__all__'
 
+
 class RecommendersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recommenders
         fields = '__all__'
+
 
 class PersonalStatementsSerializer(serializers.ModelSerializer):
     class Meta:
         model = PersonalStatements
         fields = '__all__'
 
+
 class DocumentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Documents
         fields = '__all__'
+
 
 class ApplicationFormSerializer(serializers.ModelSerializer):
     personal_info = PersonalInformationSerializer(required=False)

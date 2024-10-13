@@ -9,6 +9,19 @@ from rest_framework_simplejwt.tokens import AccessToken
 from django.shortcuts import get_object_or_404
 from .customs.offers import Offers
 from .customs.applications import ApplicationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.admin.views.decorators import staff_member_required
+
+
+# fetch users
+@staff_member_required
+@api_view(['GET'])
+def fetch_users(request):
+    # Exclude staff and superuser accounts
+    users = User.objects.filter(is_staff=False, is_superuser=False).values('id', 'username', 'email')
+    return Response(users)
+
 
 @api_view(['POST'])
 def register_user(request):
@@ -17,6 +30,7 @@ def register_user(request):
         user = serializer.save()
         return Response({'id': user.id, 'username': user.username}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 def validate_token(request):
