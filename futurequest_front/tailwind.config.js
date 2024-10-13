@@ -4,6 +4,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      /* backgroundImage :{
+        'dots-pattern': "url('~/src/background/bg_mkbhd_white.mp4')",
+      }, */
       transitionProperty: {
         bg: "background-color",
         'text-colors': 'color, text-decoration-color',

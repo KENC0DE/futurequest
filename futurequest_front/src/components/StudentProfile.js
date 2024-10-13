@@ -108,7 +108,7 @@ const StudentProfile = ({ studentData, onEdit, showEditButton }) => {
     <div className="bg-gray-100 dark:bg-slate-700 dark:text-white p-6 max-w-4xl mx-auto rounded-lg shadow-xl">
       <div className="flex flex-col items-center mb-6 text-center relative sm:flex-row sm:text-left sm:items-start">
         <img
-          src={`${process.env.REACT_APP_API_URL}${studentData.passport_size_photo} || https://via.placeholder.com/150`}
+          src={`${studentData.passport_size_photo} || https://via.placeholder.com/150`}
           alt={`${studentData.full_name}'s profile`}
           className="w-36 h-36 rounded-full border-4 border-gray-300 mb-4 sm:mr-6"
         />

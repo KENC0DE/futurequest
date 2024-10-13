@@ -13,6 +13,7 @@ import {
 import { useAuth } from "../AuthContext";
 import { useOffers } from "../OffersContext";
 import { ReactComponent as Logo } from "../images/logo.svg";
+import Logo3 from "../images/logo3.png";
 
 function Header() {
   const { user } = useAuth();
@@ -53,13 +54,23 @@ function Header() {
   };
 
   return (
-    <header className="bg-white dark:bg-gray-800 shadow fixed z-50 w-full">
-      <nav className="flex items-center justify-between p-3">
+    <header className="sticky top-0 z-20 h-14 w-full p-3 bg-transparent dark:bg-transparent">
+      <nav className="flex items-center justify-between p-3 h-full">
         {/* Left Section: Dark Mode Toggle and Social Media Icons */}
         <div className="flex items-center">
           <button
+            tabIndex="-1"
+            className={`fixed cursor-default h-full w-full inset-0
+                  ${isOpen1 || isOpen2 ? "show" : "hidden"}`}
+            onClick={() => {
+              setIsOpen1(false);
+              setIsOpen2(false);
+            }}
+          ></button>
+          <button
             onClick={toggleDarkMode}
-            className="text-white text-center bg-slate-900 dark:text-orange-400 dark:bg-white focus:outline-none rounded-full p-2 mr-4 border-2 border-gray-300 dark:border-gray-600"
+            className="text-white text-center bg-slate-900 dark:text-orange-400
+             dark:bg-white focus:outline-none rounded-full p-3 mr-4 transition duration-500"
             aria-label="Toggle Dark Mode"
           >
             {darkMode ? <FaSun /> : <FaMoon />}
@@ -99,7 +110,7 @@ function Header() {
         {/* Center Section: Logo */}
         <div className="absolute left-1/2 transform -translate-x-1/2">
           <Link to="/" className="flex items-center">
-            <Logo className="h-8 w-8" />
+            <img src={Logo3} alt="Future Quest Logo" className="w-24 p-3" />
           </Link>
         </div>
         {/* Right Section: Menu and Navigation Links */}

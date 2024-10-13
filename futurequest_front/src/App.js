@@ -26,26 +26,28 @@ import Resource from "./components/Resource";
 function AppContent() {
   const { darkMode } = useOffers();
   return (
-    <div className={`App flex flex-col ${darkMode ? "dark" : ""}`}>
-      <Header />
-      <main className="mt-14 dark:bg-slate-950">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route element={<PrivateRoute />}>
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/logout" element={<Logout />} />
-            <Route path="/apply" element={<ApplicationForm />} />
-          </Route>
-          <Route path="/offers" element={<Offers />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/register" element={<SignUpForm />} />
-          <Route path="/offer-details/:id/" element={<OfferDetails />} />
-          <Route path="/work" element={<Work />} />
-          <Route path="/education" element={<Education />} />
-          <Route path="/free" element={<Free />} />
-          <Route path="/resource" element={<Resource />} />
-        </Routes>
-      </main>
+    <div className={`App ${darkMode ? "dark" : ""}`}>
+      <div className="flex flex-col dark:bg-slate-900 bg-white">
+        <Header />
+        <main className="">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route element={<PrivateRoute />}>
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/logout" element={<Logout />} />
+              <Route path="/apply" element={<ApplicationForm />} />
+            </Route>
+            <Route path="/offers" element={<Offers />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<SignUpForm />} />
+            <Route path="/offer-details/:id/" element={<OfferDetails />} />
+            <Route path="/work" element={<Work />} />
+            <Route path="/education" element={<Education />} />
+            <Route path="/free" element={<Free />} />
+            <Route path="/resource" element={<Resource />} />
+          </Routes>
+        </main>
+      </div>
     </div>
   );
 }

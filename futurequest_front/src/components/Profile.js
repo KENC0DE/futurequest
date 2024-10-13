@@ -44,11 +44,11 @@ const Profile = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="dark:bg-slate-800 dark:text-white text-center">Loading...</div>;
   }
 
   if (applications.length === 0) {
-    return <div>No applications found.</div>;
+    return <div className="dark:text-white">No applications found.</div>;
   }
 
   return (
@@ -59,7 +59,7 @@ const Profile = () => {
             className="w-36 h-36 rounded-full mb-4 dark:border-4 dark:border-slate-100 border-4 border-gray-200"
             src={
               selectedApplication
-                ? `${process.env.REACT_APP_API_URL}${selectedApplication.passport_size_photo}`
+                ? `${selectedApplication.passport_size_photo}`
                 : "https://via.placeholder.com/150"
             }
             alt={
