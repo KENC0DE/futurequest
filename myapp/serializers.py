@@ -52,31 +52,49 @@ class DocumentsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ApplicationFormSerializer(serializers.ModelSerializer):
-    personal_info = PersonalInformationSerializer()
-    contact_info = ContactInformationSerializer()
-    educational_background = EducationalBackgroundSerializer()
-    recommenders = RecommendersSerializer()
-    personal_statements = PersonalStatementsSerializer()
-    documents = DocumentsSerializer()
+    personal_info = PersonalInformationSerializer(required=False)
+    contact_info = ContactInformationSerializer(required=False)
+    educational_background = EducationalBackgroundSerializer(required=False)
+    recommenders = RecommendersSerializer(required=False)
+    personal_statements = PersonalStatementsSerializer(required=False)
+    documents = DocumentsSerializer(required=False)
 
     class Meta:
         model = ApplicationForm
         exclude = ['user']
 
-    def create(self, validated_data):
-        personal_info_data = validated_data.pop('personal_info')
-        contact_info_data = validated_data.pop('contact_info')
-        educational_background_data = validated_data.pop('educational_background')
-        recommenders_data = validated_data.pop('recommenders')
-        personal_statements_data = validated_data.pop('personal_statements')
-        documents_data = validated_data.pop('documents')
+    def validate(self, data):
+        offer = data.get('offer')
 
-        personal_info = PersonalInformation.objects.create(**personal_info_data)
-        contact_info = ContactInformation.objects.create(**contact_info_data)
-        educational_background = EducationalBackground.objects.create(**educational_background_data)
-        recommenders = Recommenders.objects.create(**recommenders_data)
-        personal_statements = PersonalStatements.objects.create(**personal_statements_data)
-        documents = Documents.objects.create(**documents_data)
+        if offer.require_personal_info and 'personal_info' not in data:
+            raise serializers.ValidationError("Personal information is required.")
+        if offer.require_contact_info and 'contact_info' not in data:
+            raise serializers.ValidationError("Contact information is required.")
+        if offer.require_educational_background and 'educational_background' not in data:
+            raise serializers.ValidationError("Educational background is required.")
+        if offer.require_recommenders and 'recommenders' not in data:
+            raise serializers.ValidationError("Recommenders are required.")
+        if offer.require_personal_statements and 'personal_statements' not in data:
+            raise serializers.ValidationError("Personal statements are required.")
+        if offer.require_documents and 'documents' not in data:
+            raise serializers.ValidationError("Documents are required.")
+
+        return data
+
+    def create(self, validated_data):
+        personal_info_data = validated_data.pop('personal_info', None)
+        contact_info_data = validated_data.pop('contact_info', None)
+        educational_background_data = validated_data.pop('educational_background', None)
+        recommenders_data = validated_data.pop('recommenders', None)
+        personal_statements_data = validated_data.pop('personal_statements', None)
+        documents_data = validated_data.pop('documents', None)
+
+        personal_info = PersonalInformation.objects.create(**personal_info_data) if personal_info_data else None
+        contact_info = ContactInformation.objects.create(**contact_info_data) if contact_info_data else None
+        educational_background = EducationalBackground.objects.create(**educational_background_data) if educational_background_data else None
+        recommenders = Recommenders.objects.create(**recommenders_data) if recommenders_data else None
+        personal_statements = PersonalStatements.objects.create(**personal_statements_data) if personal_statements_data else None
+        documents = Documents.objects.create(**documents_data) if documents_data else None
 
         application_form = ApplicationForm.objects.create(
             personal_info=personal_info,
