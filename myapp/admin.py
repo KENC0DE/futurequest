@@ -1,9 +1,15 @@
 from django.contrib import admin
-from .models import Offers, ApplicationForm
+from .customs.offers import Offers
+from .customs.applications import ApplicationForm, PersonalInformation, ContactInformation, EducationalBackground, Recommenders, PersonalStatements, Documents
 
 class ApplicationFormAdmin(admin.ModelAdmin):
-    list_display = ('user', 'offer', 'full_name', 'email_address')
-    search_fields = ('user__username', 'offer__title', 'full_name', 'email_address')
+    list_display = ('user', 'offer')
 
 admin.site.register(Offers)
 admin.site.register(ApplicationForm, ApplicationFormAdmin)
+admin.site.register(PersonalInformation)
+admin.site.register(ContactInformation)
+admin.site.register(EducationalBackground)
+admin.site.register(Recommenders)
+admin.site.register(PersonalStatements)
+admin.site.register(Documents)

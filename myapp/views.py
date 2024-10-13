@@ -1,15 +1,14 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions, status, viewsets
-from .serializers import UserSerializer
+from .serializers import UserSerializer, OffersSerializer, ApplicationFormSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.tokens import AccessToken
 from django.shortcuts import get_object_or_404
-from .models import Offers, ApplicationForm
-from .serializers import OffersSerializer, ApplicationFormSerializer
-
+from .customs.offers import Offers
+from .customs.applications import ApplicationForm
 
 @api_view(['POST'])
 def register_user(request):
@@ -18,7 +17,6 @@ def register_user(request):
         user = serializer.save()
         return Response({'id': user.id, 'username': user.username}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view(['POST'])
 def validate_token(request):
@@ -32,7 +30,6 @@ def validate_token(request):
     except Exception as e:
         return Response({'valid': False}, status=status.HTTP_401_UNAUTHORIZED)
 
-
 class UserDetailView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -40,7 +37,6 @@ class UserDetailView(APIView):
         user = request.user
         serializer = UserSerializer(user)
         return Response(serializer.data)
-
 
 class OffersViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Offers.objects.all()
@@ -65,7 +61,6 @@ class OffersViewSet(viewsets.ReadOnlyModelViewSet):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
-
 
 class ApplicationFormViewSet(viewsets.ModelViewSet):
     queryset = ApplicationForm.objects.all()

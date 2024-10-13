@@ -4,11 +4,9 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.routers import DefaultRouter
 from .views import OffersViewSet, ApplicationFormViewSet
 
-
 router = DefaultRouter()
 router.register(r'offers', OffersViewSet)
 router.register(r'applications', ApplicationFormViewSet)
-
 
 urlpatterns = [
     path('register/', register_user, name='register'),
@@ -16,6 +14,5 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('validate-token/', validate_token, name='validate_token'),
     path('user/', UserDetailView.as_view(), name='user_detail'),
-
     path('', include(router.urls)),
 ]
