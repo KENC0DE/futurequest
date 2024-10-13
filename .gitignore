@@ -1,3 +1,7 @@
 test.py
 **/__pycache__
-fenv
+fenv/
+db.sqlite3
+/documents
+/offers_images
+/photos
