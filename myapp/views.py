@@ -76,20 +76,29 @@ class OffersViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
+
 class ApplicationFormViewSet(viewsets.ModelViewSet):
     queryset = ApplicationForm.objects.all()
     serializer_class = ApplicationFormSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return ApplicationForm.objects.filter(user=self.request.user)
+        user = self.request.user
+        user_id = self.request.query_params.get('user', None)
+
+        if user.is_superuser:
+            if user_id:
+                return ApplicationForm.objects.filter(user_id=user_id)
+            return ApplicationForm.objects.all()
+        else:
+            return ApplicationForm.objects.filter(user=user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
-        if instance.user != request.user:
+        if not request.user.is_superuser and instance.user != request.user:
             return Response({"detail": "You do not have permission to delete this application."},
                             status=status.HTTP_403_FORBIDDEN)
         return super().destroy(request, *args, **kwargs)
