@@ -12,9 +12,8 @@ const OfferDetails = () => {
   const { setSelectedOfferId } = useOffers();
 
   const handleApplyClick = () => {
-    setSelectedOfferId(id);
-    localStorage.setItem("intendedDestination", "/apply");
-    navigate("/apply");
+    localStorage.setItem("intendedDestination", `/apply?offerId=${id}`);
+    navigate(`/apply?offerId=${id}`, { state: { OfferDetails } });
   };
 
   useEffect(() => {
@@ -43,7 +42,9 @@ const OfferDetails = () => {
             <h5 className="text-lg font-semibold text-gray-700 dark:text-white mb-1">
               Description
             </h5>
-            <p className="text-gray-600 dark:text-white">{OfferDetails.description}</p>
+            <p className="text-gray-600 dark:text-white">
+              {OfferDetails.description}
+            </p>
           </div>
           <div className="reqs">
             <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-3">
@@ -55,7 +56,9 @@ const OfferDetails = () => {
                   <li key={index}>{req}</li>
                 ))
               ) : (
-                <li className="dark:text-white">No specific requirements listed.</li>
+                <li className="dark:text-white">
+                  No specific requirements listed.
+                </li>
               )}
             </ul>
           </div>

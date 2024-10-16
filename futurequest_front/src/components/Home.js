@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaGraduationCap, FaBriefcase, FaBook } from "react-icons/fa";
 import HeroBg from "../background/bg_mkbhd_white.mp4";
-import HeroBg1 from "../background/bg_1.mp4";
-import HeroBg2 from "../background/bg_2.mp4";
 
 function Home() {
   return (

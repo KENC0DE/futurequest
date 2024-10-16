@@ -12,7 +12,6 @@ import {
 } from "react-icons/fa";
 import { useAuth } from "../AuthContext";
 import { useOffers } from "../OffersContext";
-import { ReactComponent as Logo } from "../images/logo.svg";
 import Logo3 from "../images/logo3.png";
 
 function Header() {

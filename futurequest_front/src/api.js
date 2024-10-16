@@ -60,8 +60,8 @@ export const getOffers = (params = {}) => api.get("/offers/", { params });
 export const login = (credentials) => api.post("/login/", credentials);
 export const getUserProfile = () => api.get("/user/");
 export const getOfferDetails = (id) => api.get(`/offers/${id}/`);
-export const createApplication = (applicationData) => {
-  return api.post("/applications/", applicationData);
+export const createApplication = (formData) => {
+  return api.post("/applications/", formData);
 };
 export const listApplications = () => {
   return api.get("/applications/");
