@@ -185,7 +185,7 @@ const ApplicationForm = () => {
         console.error("Server response:", error.response.data);
       }
       alert(
-        "Failed to submit application. Please check the console for details."
+        "Failed to submit application."
       );
     }
   };
