@@ -14,6 +14,14 @@ from django.contrib.auth.models import User
 from django.contrib.admin.views.decorators import staff_member_required
 
 
+@staff_member_required
+@api_view(['GET'])
+def get_applications(request):
+    applications = ApplicationForm.objects.all()  # Fetch all applications
+    serializer = ApplicationFormSerializer(applications, many=True)  # Serialize the data
+    return Response(serializer.data)
+
+
 # fetch users
 @staff_member_required
 @api_view(['GET'])
@@ -83,22 +91,14 @@ class ApplicationFormViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        user = self.request.user
-        user_id = self.request.query_params.get('user', None)
-
-        if user.is_superuser:
-            if user_id:
-                return ApplicationForm.objects.filter(user_id=user_id)
-            return ApplicationForm.objects.all()
-        else:
-            return ApplicationForm.objects.filter(user=user)
+        return ApplicationForm.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
-        if not request.user.is_superuser and instance.user != request.user:
+        if instance.user != request.user:
             return Response({"detail": "You do not have permission to delete this application."},
                             status=status.HTTP_403_FORBIDDEN)
         return super().destroy(request, *args, **kwargs)
