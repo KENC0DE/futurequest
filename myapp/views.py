@@ -14,7 +14,6 @@ from django.contrib.auth.models import User
 from django.contrib.admin.views.decorators import staff_member_required
 
 
-@staff_member_required
 @api_view(['GET'])
 def get_applications(request):
     applications = ApplicationForm.objects.all()  # Fetch all applications
@@ -23,7 +22,6 @@ def get_applications(request):
 
 
 # fetch users
-@staff_member_required
 @api_view(['GET'])
 def fetch_users(request):
     # Exclude staff and superuser accounts
