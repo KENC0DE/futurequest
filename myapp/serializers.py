@@ -115,3 +115,65 @@ class ApplicationFormSerializer(serializers.ModelSerializer):
             **validated_data
         )
         return application_form
+
+    def update(self, instance, validated_data):
+        personal_info_data = validated_data.pop('personal_info', None)
+        contact_info_data = validated_data.pop('contact_info', None)
+        educational_background_data = validated_data.pop('educational_background', None)
+        recommenders_data = validated_data.pop('recommenders', None)
+        personal_statements_data = validated_data.pop('personal_statements', None)
+        documents_data = validated_data.pop('documents', None)
+
+        if personal_info_data:
+            if instance.personal_info:
+                for attr, value in personal_info_data.items():
+                    setattr(instance.personal_info, attr, value)
+                instance.personal_info.save()
+            else:
+                instance.personal_info = PersonalInformation.objects.create(**personal_info_data)
+
+        if contact_info_data:
+            if instance.contact_info:
+                for attr, value in contact_info_data.items():
+                    setattr(instance.contact_info, attr, value)
+                instance.contact_info.save()
+            else:
+                instance.contact_info = ContactInformation.objects.create(**contact_info_data)
+
+        if educational_background_data:
+            if instance.educational_background:
+                for attr, value in educational_background_data.items():
+                    setattr(instance.educational_background, attr, value)
+                instance.educational_background.save()
+            else:
+                instance.educational_background = EducationalBackground.objects.create(**educational_background_data)
+
+        if recommenders_data:
+            if instance.recommenders:
+                for attr, value in recommenders_data.items():
+                    setattr(instance.recommenders, attr, value)
+                instance.recommenders.save()
+            else:
+                instance.recommenders = Recommenders.objects.create(**recommenders_data)
+
+        if personal_statements_data:
+            if instance.personal_statements:
+                for attr, value in personal_statements_data.items():
+                    setattr(instance.personal_statements, attr, value)
+                instance.personal_statements.save()
+            else:
+                instance.personal_statements = PersonalStatements.objects.create(**personal_statements_data)
+
+        if documents_data:
+            if instance.documents:
+                for attr, value in documents_data.items():
+                    setattr(instance.documents, attr, value)
+                instance.documents.save()
+            else:
+                instance.documents = Documents.objects.create(**documents_data)
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        instance.save()
+        return instance

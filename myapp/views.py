@@ -102,3 +102,7 @@ class ApplicationFormViewSet(viewsets.ModelViewSet):
             return Response({"detail": "You do not have permission to delete this application."},
                             status=status.HTTP_403_FORBIDDEN)
         return super().destroy(request, *args, **kwargs)
+
+    def partial_update(self, request, *args, **kwargs):
+        kwargs['partial'] = True
+        return self.update(request, *args, **kwargs)
