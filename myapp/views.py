@@ -16,9 +16,25 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 @api_view(['GET'])
 def get_applications(request):
-    applications = ApplicationForm.objects.all()  # Fetch all applications
-    serializer = ApplicationFormSerializer(applications, many=True)  # Serialize the data
+    application_id = request.query_params.get('id', None)
+    user_id = request.query_params.get('user', None)
+
+    if application_id is not None:
+        try:
+            application = ApplicationForm.objects.get(id=application_id)
+            serializer = ApplicationFormSerializer(application)
+            return Response(serializer.data)
+        except ApplicationForm.DoesNotExist:
+            return Response({"detail": "Application not found."}, status=status.HTTP_404_NOT_FOUND)
+
+    if user_id is not None:
+        applications = ApplicationForm.objects.filter(user_id=user_id)
+    else:
+        applications = ApplicationForm.objects.all()
+
+    serializer = ApplicationFormSerializer(applications, many=True)
     return Response(serializer.data)
+
 
 
 # fetch users
