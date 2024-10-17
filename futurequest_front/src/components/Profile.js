@@ -22,7 +22,15 @@ const Profile = () => {
         }
         setOfferTitles(titles);
 
-        if (applicationsData.length > 0) {
+        const savedApplicationId = localStorage.getItem("selectedApplicationId");
+        if (savedApplicationId) {
+          const application = applicationsData.find(
+            (app) => app.id === parseInt(savedApplicationId, 10)
+          );
+          if (application) {
+            setSelectedApplication(application);
+          }
+        } else if (applicationsData.length > 0) {
           setSelectedApplication(applicationsData[0]);
         }
       } catch (error) {
@@ -39,6 +47,7 @@ const Profile = () => {
     const selectedId = parseInt(event.target.value, 10);
     const application = applications.find((app) => app.id === selectedId);
     setSelectedApplication(application);
+    localStorage.setItem("selectedApplicationId", selectedId);
   };
 
   if (loading) {
@@ -50,7 +59,7 @@ const Profile = () => {
   }
 
   if (applications.length === 0) {
-    return <div className="dark:text-white">No applications found.</div>;
+    return <div className="dark:text-white text-center h-screen">No applications found.</div>;
   }
 
   return (

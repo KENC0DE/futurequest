@@ -50,15 +50,24 @@ const OfferDetails = () => {
             <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-3">
               Requirements
             </h3>
-            <ul className="list-disc pl-5 space-y-2">
-              {OfferDetails.requirements ? (
-                OfferDetails.requirements.map((req, index) => (
-                  <li key={index}>{req}</li>
-                ))
-              ) : (
-                <li className="dark:text-white">
-                  No specific requirements listed.
-                </li>
+            <ul className="list-disc pl-5 space-y-2 dark:text-white">
+              {OfferDetails.require_personal_info && (
+                <li>Personal Information</li>
+              )}
+              {OfferDetails.require_contact_info && (
+                <li>Contact Information</li>
+              )}
+              {OfferDetails.require_educational_background && (
+                <li>Educational Background</li>
+              )}
+              {OfferDetails.require_recommenders && (
+                <li>Recommenders</li>
+              )}
+              {OfferDetails.require_personal_statements && (
+                <li>Personal Statements</li>
+              )}
+              {OfferDetails.require_documents && (
+                <li>Documents</li>
               )}
             </ul>
           </div>

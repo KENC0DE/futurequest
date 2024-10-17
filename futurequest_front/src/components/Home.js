@@ -58,17 +58,18 @@ function Home() {
       <section className="py-16 px-8 dark:bg-gray-800 dark:text-white bg-gray-200 text-black text-center">
         <h2 className="text-3xl font-bold mb-8">Recent Videos</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8">
-          {/*recent video thumbnails here */}
-          <div className="p-4 rounded shadow dark:bg-gray-700 dark:text-white bg-white text-black">
-            {/* Video Thumbnail*/}
-            <img
-              src="path/to/thumbnail.jpg"
-              alt="Video Thumbnail"
-              className="w-full h-auto rounded mb-2"
-            />
-            <h3 className="text-lg font-semibold">Video Title</h3>
+          <div className="rounded dark:bg-gray-700 dark:text-white bg-white text-black">
+            <iframe
+              width="100%"
+              height="auto"
+              src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="rounded mb-2"
+            ></iframe>
           </div>
-          {/*more video thumbnails */}
         </div>
         <a
           href="#"

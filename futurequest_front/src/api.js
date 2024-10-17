@@ -59,12 +59,25 @@ const refreshAccessToken = async () => {
 export const getOffers = (params = {}) => api.get("/offers/", { params });
 export const login = (credentials) => api.post("/login/", credentials);
 export const getUserProfile = () => api.get("/user/");
+export const listUsers = () => api.get("/fetch_users/");
 export const getOfferDetails = (id) => api.get(`/offers/${id}/`);
 export const createApplication = (formData) => {
   return api.post("/applications/", formData);
 };
+export const updateApplication = (id, formData) => {
+  return api.put(`/applications/${id}/`, formData);
+};
 export const listApplications = () => {
   return api.get("/applications/");
+};
+export const getApplications = () => {
+  return api.get("/get_applications/");
+};
+export const getUserApplications = (userId) => {
+  return api.get(`/get_applications/?user=${userId}`);
+};
+export const getApplicationDetails = (applicationId) => {
+  return api.get(`/applications/${applicationId}/`);
 };
 export const register = async (data) => {
   return await api.post("/register/", data);

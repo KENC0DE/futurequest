@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getOfferDetails } from "../api";
 import { useNavigate } from "react-router-dom";
+import { useOffers } from "../OffersContext";
 
 const StudentProfile = ({ studentData, onEdit, showEditButton }) => {
   const [offerTitle, setOfferTitle] = useState("");
+  const [OfferDetails, setOfferDetails] = useState();
   const navigate = useNavigate();
 
   const fieldLabels = {
@@ -87,6 +89,7 @@ const StudentProfile = ({ studentData, onEdit, showEditButton }) => {
     "documents.cv",
     "documents.certificates_awards",
     "documents.passport_id_scan",
+    "documents.passport_size_photo",
     "documents.highschool_transcript",
     "documents.highschool_diploma",
     "documents.national_exam_result",
@@ -100,6 +103,7 @@ const StudentProfile = ({ studentData, onEdit, showEditButton }) => {
       getOfferDetails(studentData.offer)
         .then((response) => {
           setOfferTitle(response.data.title);
+          setOfferDetails(response.data);
         })
         .catch((error) => {
           console.error("Error fetching offer details:", error);
@@ -112,8 +116,10 @@ const StudentProfile = ({ studentData, onEdit, showEditButton }) => {
   }
 
   const handleEditClick = () => {
-    navigate(`/apply?offerId=${studentData.offer}`, { state : { OfferDetails: studentData } });
-  }
+    navigate(`/apply?offerId=${studentData.offer}&applicationId=${studentData.id}`, {
+      state: { studentData, OfferDetails },
+    });
+  };
 
   return (
     <div className="bg-gray-100 dark:bg-slate-700 dark:text-white p-6 max-w-4xl mx-auto rounded-lg shadow-xl">
@@ -158,7 +164,7 @@ const StudentProfile = ({ studentData, onEdit, showEditButton }) => {
                 {fileFields.includes(key) ? (
                   fieldValue ? (
                     <a
-                      href={`${process.env.REACT_APP_API_URL}${fieldValue}`}
+                      href={fieldValue}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-500 hover:underline"
