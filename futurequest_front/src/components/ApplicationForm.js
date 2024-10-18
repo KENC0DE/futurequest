@@ -8,10 +8,11 @@ import {
   FileUploadForm,
   ContactInfoForm,
 } from "./AppFormComp";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ApplicationForm = () => {
   const { search, state } = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(search);
   const offerIdFromUrl = queryParams.get("offerId");
   const offerDetails = state?.OfferDetails || {};
@@ -182,6 +183,7 @@ const [formData, setFormData] = useState(() => initializeFormData());
         await createApplication(formDataToSubmit);
         alert("Application submitted successfully!");
       }
+      navigate("/profile");
     } catch (error) {
       console.error("Error submitting application:", error);
       if (error.response) {
