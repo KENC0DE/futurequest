@@ -2,6 +2,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getOffers } from "../api";
 import { useOffers } from "../OffersContext";
+import { FaGraduationCap, FaGlobe } from "react-icons/fa";
 
 const offerClick = (navigate, id) => {
   navigate(`/offer-details/${id}/`);
@@ -45,17 +46,26 @@ const Education = () => {
               onClick={() => offerClick(navigate, offer.id)}
             >
               <div className="mb-4">
-                <img
-                  src={`${process.env.REACT_APP_API_URL}${offer.image}`}
-                  alt={offer.name}
-                  className="w-full min-w-36 h-40 object-cover rounded-md bg-gray-100 dark:bg-gray-700"
-                />
+                <FaGraduationCap className="w-full min-w-36 h-40 object-cover rounded-md bg-white dark:bg-gray-700 text-green-600 p-3" />
               </div>
               <div className="text-white">
                 <h3 className="text-lg font-semibold mb-2 uppercase">
                   {offer.title}
                 </h3>
-                <p className="text-base">{offer.description}</p>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {offer.ed_level && (
+                    <div className="flex items-center bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white rounded-full py-1 px-2 shadow-md">
+                      <FaGraduationCap className="mr-2 text-blue-500" />
+                      <span className="font-semibold">{offer.ed_level}</span>
+                    </div>
+                  )}
+                  {offer.country && (
+                    <div className="flex items-center bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white rounded-full px-3 py-1 shadow-md">
+                      <FaGlobe className="mr-2 text-green-500" />
+                      <span className="font-semibold">{offer.country}</span>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           ))
