@@ -86,21 +86,12 @@ function Home() {
           <a href="#contact" className="hover:underline">
             Contact
           </a>
-          <a href="#privacy" className="hover:underline">
-            Privacy Policy
-          </a>
-          <a href="#terms" className="hover:underline">
-            Terms of Service
-          </a>
-          <a href="#faq" className="hover:underline">
-            Returns & FAQ
-          </a>
         </div>
         <div className="copyright text-center text-sm mb-2">
-          © 2024 Your Brand
+          © 2024 Future Quest
         </div>
         <div className="powered-by text-center text-sm">
-          Powered by Your Platform
+          Powered by Future Quest
         </div>
       </footer>
     </div>
