@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { getOfferDetails } from "../api";
 import { useNavigate } from "react-router-dom";
-import { useOffers } from "../OffersContext";
+import { FaCopy, FaDownload } from "react-icons/fa";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
-const StudentProfile = ({ studentData, onEdit, showEditButton }) => {
+const StudentProfile = ({
+  studentData,
+  onEdit,
+  showEditButton,
+  showCopyOrDownloadButton,
+}) => {
   const [offerTitle, setOfferTitle] = useState("");
   const [OfferDetails, setOfferDetails] = useState();
   const navigate = useNavigate();
@@ -116,9 +122,12 @@ const StudentProfile = ({ studentData, onEdit, showEditButton }) => {
   }
 
   const handleEditClick = () => {
-    navigate(`/apply?offerId=${studentData.offer}&applicationId=${studentData.id}`, {
-      state: { studentData, OfferDetails },
-    });
+    navigate(
+      `/apply?offerId=${studentData.offer}&applicationId=${studentData.id}`,
+      {
+        state: { studentData, OfferDetails },
+      }
+    );
   };
 
   return (
@@ -177,6 +186,24 @@ const StudentProfile = ({ studentData, onEdit, showEditButton }) => {
                 ) : (
                   fieldValue || "N/A"
                 )}
+                {showCopyOrDownloadButton && !fileFields.includes(key) && (
+                  <CopyToClipboard text={fieldValue || "N/A"}>
+                    <button className="ml-2 text-blue-400 hover:text-gray-400">
+                      <FaCopy />
+                    </button>
+                  </CopyToClipboard>
+                )}
+                {showCopyOrDownloadButton &&
+                  fileFields.includes(key) &&
+                  fieldValue && (
+                    <a
+                      href={fieldValue}
+                      download
+                      className="ml-2 text-gray-800 hover:text-blue-700 dark:text-white dark:hover:text-gray-900"
+                    >
+                      <FaDownload />
+                    </a>
+                  )}
               </div>
             </div>
           );

@@ -152,8 +152,7 @@ const AdminPage = () => {
               <StudentProfile
                 key={selectedApplication.id}
                 studentData={selectedApplication}
-                onEdit={() => console.log("Edit button clicked")}
-                showEditButton={true}
+                showCopyOrDownloadButton={true}
               />
             ) : (
               <div className="text-center dark:text-white">

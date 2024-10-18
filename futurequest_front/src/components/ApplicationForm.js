@@ -197,7 +197,7 @@ const [formData, setFormData] = useState(() => initializeFormData());
     <form
       onSubmit={handleSubmit}
       encType="multipart/form-data"
-      className="max-w-4xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-lg shadow-lg h-full"
+      className="max-w-4xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-lg shadow-lg h-full min-h-screen"
     >
       <h1 className="text-center text-3xl font-bold text-gray-900 dark:text-white rounded-lg py-4 mb-6 bg-gradient-to-r from-blue-500 to-purple-600">
         Prospective Student University Application Form
