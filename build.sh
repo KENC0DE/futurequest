@@ -35,8 +35,8 @@ if not User.objects.filter(username='$DJANGO_SUPERUSER_USERNAME').exists():
     User.objects.create_superuser('$DJANGO_SUPERUSER_USERNAME', 'admin@example.com', '$DJANGO_SUPERUSER_PASSWORD')
 EOF
 
-# Optional: Collect static files (uncomment if needed)
-# echo_message "Collecting static files"
-# python manage.py collectstatic --noinput
+# Step 4: Collect static files
+echo_message "Collecting static files"
+python manage.py collectstatic --noinput
 
 echo_message "Build script completed successfully"
