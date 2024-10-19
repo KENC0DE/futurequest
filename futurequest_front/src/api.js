@@ -1,7 +1,7 @@
 // api.js
 import axios from "axios";
 
-const API_URL = "http://localhost:8000/api";
+const API_URL = "https://futurequest-f09o.onrender.com/api";
 
 const api = axios.create({
   baseURL: API_URL,
@@ -23,16 +23,15 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const newAccessToken = await refreshAccessToken();
-        axios.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${newAccessToken}`;
+        axios.defaults.headers.common["Authorization"] =
+          `Bearer ${newAccessToken}`;
         return api(originalRequest);
       } catch (refreshError) {
         return Promise.reject(refreshError);
       }
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 const refreshAccessToken = async () => {
