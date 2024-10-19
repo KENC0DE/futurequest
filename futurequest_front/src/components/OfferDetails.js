@@ -12,19 +12,18 @@ const OfferDetails = () => {
   const { setSelectedOfferId } = useOffers();
 
   const handleApplyClick = () => {
+    const state = { OfferDetails };
     localStorage.setItem("intendedDestination", `/apply?offerId=${id}`);
-    navigate(`/apply?offerId=${id}`, { state: { OfferDetails } });
+    localStorage.setItem("intendedDestinationState", JSON.stringify(state));
+    navigate(`/apply?offerId=${id}`, { state });
   };
 
   useEffect(() => {
     getOfferDetails(id)
       .then((response) => {
         setOfferDetails(response.data);
-        console.log(response.data);
-        console.log(id);
       })
       .catch((error) => {
-        console.error("Error fetching offers:", error);
         setError("Failed to fetch Offers. Please try again later.");
       });
   }, [id]);
@@ -60,15 +59,11 @@ const OfferDetails = () => {
               {OfferDetails.require_educational_background && (
                 <li>Educational Background</li>
               )}
-              {OfferDetails.require_recommenders && (
-                <li>Recommenders</li>
-              )}
+              {OfferDetails.require_recommenders && <li>Recommenders</li>}
               {OfferDetails.require_personal_statements && (
                 <li>Personal Statements</li>
               )}
-              {OfferDetails.require_documents && (
-                <li>Documents</li>
-              )}
+              {OfferDetails.require_documents && <li>Documents</li>}
             </ul>
           </div>
           <button

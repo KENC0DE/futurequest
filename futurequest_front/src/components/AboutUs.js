@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Footer from "./Footer";
 
-export default function Resource() {
+export default function AboutUs() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -25,7 +25,7 @@ export default function Resource() {
           <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
             <div className="text-center">
               <h1 className="text-balance text-4xl font-bold tracking-tight text-orange-600 sm:text-6xl">
-                Coming Soon!
+                About US
               </h1>
             </div>
           </div>

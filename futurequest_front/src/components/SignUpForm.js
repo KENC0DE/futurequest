@@ -24,7 +24,6 @@ const SignUpForm = () => {
       setError(
         err.response?.data?.detail || "Failed to register. Please try again."
       );
-      console.error(err);
     }
   };
 

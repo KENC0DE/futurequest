@@ -17,6 +17,7 @@ import { OffersProvider } from "./OffersContext";
 import { useOffers } from "./OffersContext";
 import Resource from "./components/Resource";
 import AdminPage from "./components/AdminPage";
+import AboutUs from "./components/AboutUs";
 
 function AppContent() {
   const { darkMode } = useOffers();
@@ -40,6 +41,7 @@ function AppContent() {
             <Route path="/work" element={<Work />} />
             <Route path="/education" element={<Education />} />
             <Route path="/resource" element={<Resource />} />
+            <Route path="/about-us" element={<AboutUs />} />
           </Routes>
         </main>
       </div>

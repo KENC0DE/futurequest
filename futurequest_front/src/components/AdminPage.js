@@ -19,7 +19,6 @@ const AdminPage = () => {
     const fetchUsers = async () => {
       try {
         const response = await listUsers();
-        console.log("Users:", response.data);
         setUsers(response.data);
 
         const savedUser = localStorage.getItem("selectedUser");
@@ -38,7 +37,6 @@ const AdminPage = () => {
           }
         }
       } catch (error) {
-        console.error("Error fetching users:", error);
       } finally {
         setLoading(false);
       }
@@ -51,7 +49,6 @@ const AdminPage = () => {
     setLoading(true);
     try {
       const response = await getUserApplications(user.id);
-      console.log("User applications:", response.data);
       setApplications(response.data);
       setSelectedUser(user);
       setSelectedApplication(null);
@@ -66,7 +63,6 @@ const AdminPage = () => {
       }
       setOfferTitles(titles);
     } catch (error) {
-      console.error("Error fetching user applications:", error);
     } finally {
       setLoading(false);
     }
@@ -76,14 +72,12 @@ const AdminPage = () => {
     setLoading(true);
     try {
       const response = await getApplicationDetails(applicationId);
-      console.log("Application details:", response.data);
       setSelectedApplication(response.data);
       localStorage.setItem(
         "selectedApplication",
         JSON.stringify(response.data)
       );
     } catch (error) {
-      console.error("Error fetching application details:", error);
     } finally {
       setLoading(false);
     }

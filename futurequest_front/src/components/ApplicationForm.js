@@ -209,9 +209,7 @@ const ApplicationForm = () => {
     }
 
     try {
-      console.log("Submitting application with data:");
       for (let pair of formDataToSubmit.entries()) {
-        console.log(pair[0] + ": " + pair[1]);
       }
       if (studentData.id) {
         await updateApplication(studentData.id, formDataToSubmit);
@@ -222,9 +220,7 @@ const ApplicationForm = () => {
       }
       navigate("/profile");
     } catch (error) {
-      console.error("Error submitting application:", error);
       if (error.response) {
-        console.error("Server response:", error.response.data);
       }
       alert("Failed to submit application.");
     }

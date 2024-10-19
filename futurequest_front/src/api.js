@@ -28,8 +28,6 @@ api.interceptors.response.use(
         ] = `Bearer ${newAccessToken}`;
         return api(originalRequest);
       } catch (refreshError) {
-        console.error("Token refresh failed:", refreshError);
-        // Optionally, trigger logout or redirect to login
         return Promise.reject(refreshError);
       }
     }
@@ -87,7 +85,6 @@ export const validateToken = async (token) => {
     const response = await api.post("/validate-token/", { token });
     return response.data.valid;
   } catch (error) {
-    console.error("Token validation failed:", error);
     return false;
   }
 };

@@ -11,17 +11,14 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    console.log("Token on page load:", token);
     if (token) {
       api
         .validateToken(token)
         .then((isValid) => {
-          console.log("Token is valid:", isValid);
           if (isValid) {
             api
               .getUserProfile()
               .then((response) => {
-                console.log("User profile fetched:", response.data);
                 setUser({
                   user_id: response.data.id,
                   email: response.data.email,
@@ -29,7 +26,6 @@ export const AuthProvider = ({ children }) => {
                 setIsLoading(false);
               })
               .catch((err) => {
-                console.error("Error fetching user profile:", err);
                 setIsLoading(false);
               });
           } else {
@@ -37,7 +33,6 @@ export const AuthProvider = ({ children }) => {
           }
         })
         .catch((err) => {
-          console.error("Token validation failed:", err);
           setIsLoading(false);
         });
     } else {
@@ -63,7 +58,6 @@ export const AuthProvider = ({ children }) => {
         throw new Error("Login response did not contain access token");
       }
     } catch (error) {
-      console.error("Login failed:", error);
       setError(error.message);
       throw new Error("Login response did not contain access token");
     } finally {

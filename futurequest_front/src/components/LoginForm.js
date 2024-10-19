@@ -16,12 +16,19 @@ const LoginForm = () => {
       await login({ username, password });
       const intendedDestination =
         localStorage.getItem("intendedDestination") || "/";
+      const intendedDestinationState = localStorage.getItem(
+        "intendedDestinationState"
+      );
       localStorage.removeItem("intendedDestination");
-      navigate(intendedDestination);
+      localStorage.removeItem("intendedDestinationState");
+      navigate(intendedDestination, {
+        state: intendedDestinationState
+          ? JSON.parse(intendedDestinationState)
+          : {},
+      });
     } catch (err) {
       setPassword("");
       setError("Failed to log in: Check username or password");
-      console.error(err);
     }
   };
 

@@ -112,7 +112,6 @@ const StudentProfile = ({
           setOfferDetails(response.data);
         })
         .catch((error) => {
-          console.error("Error fetching offer details:", error);
         });
     }
   }, [studentData?.offer]);
