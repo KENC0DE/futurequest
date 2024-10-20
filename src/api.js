@@ -75,7 +75,7 @@ export const getUserApplications = (userId) => {
   return api.get(`/get_applications/?user=${userId}`);
 };
 export const getApplicationDetails = (applicationId) => {
-  return api.get(`/applications/${applicationId}/`);
+  return api.get(`/get_applications/?id=${applicationId}`);
 };
 export const register = async (data) => {
   return await api.post("/register/", data);
