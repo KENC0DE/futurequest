@@ -12,7 +12,9 @@ const AdminPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [applications, setApplications] = useState([]);
   const [selectedApplication, setSelectedApplication] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loadingUsers, setLoadingUsers] = useState(true);
+  const [loadingApplications, setLoadingApplications] = useState(false);
+  const [loadingDetails, setLoadingDetails] = useState(false);
   const [offerTitles, setOfferTitles] = useState({});
 
   useEffect(() => {
@@ -37,8 +39,9 @@ const AdminPage = () => {
           }
         }
       } catch (error) {
+        console.error("Error fetching users:", error);
       } finally {
-        setLoading(false);
+        setLoadingUsers(false);
       }
     };
 
@@ -46,7 +49,7 @@ const AdminPage = () => {
   }, []);
 
   const handleUserClick = async (user) => {
-    setLoading(true);
+    setLoadingApplications(true);
     try {
       const response = await getUserApplications(user.id);
       setApplications(response.data);
@@ -56,20 +59,22 @@ const AdminPage = () => {
       localStorage.removeItem("selectedApplication");
 
       /* titles */
-      const titles = {};
-      for (const application of response.data) {
-        const offerResponse = await getOfferDetails(application.offer);
-        titles[application.id] = offerResponse.data.title;
-      }
-      setOfferTitles(titles);
+      const titles = await Promise.all(
+        response.data.map(async (application) => {
+          const offerResponse = await getOfferDetails(application.offer);
+          return { [application.id]: offerResponse.data.title };
+        })
+      );
+      setOfferTitles(Object.assign({}, ...titles));
     } catch (error) {
+      console.error("Error fetching user applications:", error);
     } finally {
-      setLoading(false);
+      setLoadingApplications(false);
     }
   };
 
   const handleApplicationClick = async (applicationId) => {
-    setLoading(true);
+    setLoadingDetails(true);
     try {
       const response = await getApplicationDetails(applicationId);
       setSelectedApplication(response.data);
@@ -78,8 +83,9 @@ const AdminPage = () => {
         JSON.stringify(response.data)
       );
     } catch (error) {
+      console.error("Error fetching application details:", error);
     } finally {
-      setLoading(false);
+      setLoadingDetails(false);
     }
   };
 
@@ -92,7 +98,7 @@ const AdminPage = () => {
          shadow-md max-w-xs min-w-[250px] mb-2"
         >
           <h1 className="text-xl font-semibold mb-4">Users List</h1>
-          {loading ? (
+          {loadingUsers ? (
             <div>Loading...</div>
           ) : (
             <ul className="w-full">
@@ -119,7 +125,9 @@ const AdminPage = () => {
               : "Applications"}
           </h2>
           <ul className="w-full">
-            {applications.length > 0 ? (
+            {loadingApplications ? (
+              <div>Loading...</div>
+            ) : applications.length > 0 ? (
               applications.map((application) => (
                 <li
                   key={application.id}
@@ -138,7 +146,7 @@ const AdminPage = () => {
         </div>
       </div>
       <div className="flex-grow max-w-4xl p-4 lg:p-10 bg-white dark:bg-slate-800 shadow-lg border">
-        {loading ? (
+        {loadingDetails ? (
           <div>Loading...</div>
         ) : selectedUser && applications.length > 0 ? (
           <div>
