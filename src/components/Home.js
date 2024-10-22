@@ -72,7 +72,8 @@ function Home() {
           </div>
         </div>
         <a
-          href="#"
+          href="https://www.youtube.com/@Future_Quest"
+          target="_blank"
           className="inline-block mt-8 px-4 py-2 rounded dark:bg-gray-700 dark:text-white
           dark:hover:bg-gray-600 bg-gray-800 text-white hover:bg-gray-700"
         >
@@ -82,10 +83,9 @@ function Home() {
 
       {/* Footer */}
       <footer className="dark:bg-gray-800 dark:text-white py-8 mt-8 bg-gray-100">
-        <div className="footer-links flex justify-center gap-8 mb-4">
-          <a href="#contact" className="hover:underline">
-            Contact
-          </a>
+        <div className="footer-links flex-col justify-center gap-8 mb-4 text-center">
+          <p>Contact</p>
+          <p>Email: team@questfuture.net</p>
         </div>
         <div className="copyright text-center text-sm mb-2">
           © 2024 Future Quest

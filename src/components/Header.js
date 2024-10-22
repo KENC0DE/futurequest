@@ -9,6 +9,8 @@ import {
   FaMoon,
   FaBars,
   FaTimes,
+  FaTelegram,
+  FaTiktok,
 } from "react-icons/fa";
 import { useAuth } from "../AuthContext";
 import { useOffers } from "../OffersContext";
@@ -77,29 +79,33 @@ function Header() {
           {/* Social Media Icons */}
           <div className="hidden md:flex space-x-2">
             <a
-              href="#"
-              aria-label="Twitter"
+              href="https://www.TikTok.com/@questfuture"
+              aria-label="Tiktok"
+              target="_blank"
               className="text-gray-600 dark:text-white hover:text-orange-500 dark:hover:text-orange-500"
             >
-              <FaTwitter size={24} />
+              <FaTiktok size={24} />
             </a>
             <a
-              href="#"
-              aria-label="Facebook"
+              href="https://www.t.me/Future_quest"
+              aria-label="Telegram"
+              target="_blank"
               className="text-gray-600 dark:text-white hover:text-orange-500 dark:hover:text-orange-500"
             >
-              <FaFacebook size={24} />
+              <FaTelegram size={24} />
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/questfuture"
               aria-label="Instagram"
+              target="_blank"
               className="text-gray-600 dark:text-white hover:text-orange-500 dark:hover:text-orange-500"
             >
               <FaInstagram size={24} />
             </a>
             <a
-              href="#"
+              href="https://www.youtube.com/@Future_Quest"
               aria-label="YouTube"
+              target="_blank"
               className="text-gray-600 dark:text-white hover:text-orange-500 dark:hover:text-orange-500"
             >
               <FaYoutube size={24} />
@@ -480,28 +486,28 @@ function Header() {
             {/* Social Media Icons */}
             <div className="flex space-x-4 mt-4 w-full justify-center">
               <a
-                href="#"
-                aria-label="Twitter"
+                href="TikTok.com/@questfuture"
+                aria-label="Tiktok"
                 className="text-gray-600 dark:text-white hover:text-orange-500 dark:hover:text-orange-500"
               >
-                <FaTwitter size={24} />
+                <FaTiktok size={24} />
               </a>
               <a
-                href="#"
-                aria-label="Facebook"
+                href="t.me/Future_quest"
+                aria-label="Telegram"
                 className="text-gray-600 dark:text-white hover:text-orange-500 dark:hover:text-orange-500"
               >
-                <FaFacebook size={24} />
+                <FaTelegram size={24} />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/questfuture"
                 aria-label="Instagram"
                 className="text-gray-600 dark:text-white hover:text-orange-500 dark:hover:text-orange-500"
               >
                 <FaInstagram size={24} />
               </a>
               <a
-                href="#"
+                href="https://www.youtube.com/@Future_Quest"
                 aria-label="YouTube"
                 className="text-gray-600 dark:text-white hover:text-orange-500 dark:hover:text-orange-500"
               >
