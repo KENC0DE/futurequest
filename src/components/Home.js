@@ -83,9 +83,17 @@ function Home() {
 
       {/* Footer */}
       <footer className="dark:bg-gray-800 dark:text-white py-8 mt-8 bg-gray-100">
-        <div className="footer-links flex-col justify-center gap-8 mb-4 text-center">
+        <div className="footer-links flex-col text-center gap-8 mb-4">
           <p>Contact</p>
-          <p>Email: team@questfuture.net</p>
+          <p className="mt-2 text-lg text-gray-600 dark:text-gray-300">
+            Email:{" "}
+            <a
+              href="mailto:team@questfuture.net"
+              className="text-blue-600 dark:text-blue-400"
+            >
+              team@questfuture.net
+            </a>
+          </p>
         </div>
         <div className="copyright text-center text-sm mb-2">
           © 2024 Future Quest
