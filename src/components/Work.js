@@ -47,7 +47,15 @@ const Work = () => {
                 onClick={() => offerClick(navigate, offer.id)}
               >
                 <div className="mb-4 p-2">
-                  <FaBriefcase className="w-full min-w-36 h-40 object-cover rounded-md bg-white dark:bg-gray-700 text-green-600 p-3" />
+                  {offer.image ? (
+                    <img
+                      src={offer.image}
+                      alt="Offer"
+                      className="w-full min-w-36 h-40 object-cover rounded-md bg-white dark:bg-gray-700"
+                    />
+                  ) : (
+                    <FaBriefcase className="w-full min-w-36 h-40 object-cover rounded-md bg-white dark:bg-gray-700 text-green-600 p-3" />
+                  )}
                 </div>
                 <div className="text-white">
                   <h3 className="text-lg font-semibold mb-2 uppercase">

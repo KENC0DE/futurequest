@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getOfferDetails } from "../api";
 import { Link } from "react-router-dom";
 import { useOffers } from "../OffersContext";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const OfferDetails = () => {
   const { id } = useParams();
@@ -41,9 +43,11 @@ const OfferDetails = () => {
             <h5 className="text-lg font-semibold text-gray-700 dark:text-white mb-1">
               Description
             </h5>
-            <p className="text-gray-600 dark:text-white">
-              {OfferDetails.description}
-            </p>
+            <div className="text-gray-600 dark:text-white">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {OfferDetails.description}
+              </ReactMarkdown>
+            </div>
           </div>
           <div className="reqs">
             <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-3">

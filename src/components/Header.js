@@ -282,8 +282,8 @@ function Header() {
                       to="/login"
                       onClick={closeDropdowns}
                       className="slant-button flex items-center justify-center px-4 py-2
-                            text-white bg-orange-600 hover:bg-orange-700 rounded shadow transform
-                            skew-x-[-20deg] transition-transform duration-300"
+                            text-white bg-orange-600 hover:bg-orange-700 rounded-2xl shadow transform
+                            transition-transform duration-300"
                     >
                       Sign In/Up
                     </Link>
@@ -475,8 +475,8 @@ function Header() {
                       setIsMobileMenuOpen(false);
                     }}
                     className="slant-button flex items-center justify-center px-4 py-2
-                          text-white bg-orange-600 hover:bg-orange-700 rounded shadow transform
-                          skew-x-[-20deg] transition-transform duration-300"
+                          text-white bg-orange-600 hover:bg-orange-700 rounded-2xl shadow transform
+                          transition-transform duration-300"
                   >
                     Sign In/Up
                   </Link>

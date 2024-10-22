@@ -1,6 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaGraduationCap, FaBriefcase, FaBook } from "react-icons/fa";
+import {
+  FaGraduationCap,
+  FaBriefcase,
+  FaBook,
+  FaEnvelope,
+  FaWhatsapp,
+} from "react-icons/fa";
 import HeroBg from "../background/bg_mkbhd_white.mp4";
 
 function Home() {
@@ -86,12 +92,23 @@ function Home() {
         <div className="footer-links flex-col text-center gap-8 mb-4">
           <p>Contact</p>
           <p className="mt-2 text-lg text-gray-600 dark:text-gray-300">
-            Email:{" "}
+            <FaEnvelope className="inline-block mr-2" size={24} />
             <a
               href="mailto:team@questfuture.net"
+              target="_blank"
               className="text-blue-600 dark:text-blue-400"
             >
               team@questfuture.net
+            </a>
+          </p>
+          <p className="mt-2 text-lg text-gray-600 dark:text-gray-300">
+            <FaWhatsapp className="inline-block mr-2" size={24} />
+            <a
+              href="https://wa.me/+917259182634"
+              target="_blank"
+              className="text-blue-600 dark:text-blue-400"
+            >
+              +91 72591 82634
             </a>
           </p>
         </div>

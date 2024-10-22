@@ -29,9 +29,6 @@ export default function AboutUs() {
               </h1>
             </div>
             <div className="mx-auto max-w-4xl py-12 px-4 sm:px-6 lg:px-8">
-              <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">
-                About FUTURE QUEST
-              </h2>
               <section className="mt-8">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
                   Who We Are
