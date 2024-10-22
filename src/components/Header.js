@@ -486,15 +486,17 @@ function Header() {
             {/* Social Media Icons */}
             <div className="flex space-x-4 mt-4 w-full justify-center">
               <a
-                href="TikTok.com/@questfuture"
+                href="https://www.TikTok.com/@questfuture"
                 aria-label="Tiktok"
+                target="_blank"
                 className="text-gray-600 dark:text-white hover:text-orange-500 dark:hover:text-orange-500"
               >
                 <FaTiktok size={24} />
               </a>
               <a
-                href="t.me/Future_quest"
+                href="https://www.t.me/Future_quest"
                 aria-label="Telegram"
+                target="_blank"
                 className="text-gray-600 dark:text-white hover:text-orange-500 dark:hover:text-orange-500"
               >
                 <FaTelegram size={24} />
@@ -502,6 +504,7 @@ function Header() {
               <a
                 href="https://www.instagram.com/questfuture"
                 aria-label="Instagram"
+                target="_blank"
                 className="text-gray-600 dark:text-white hover:text-orange-500 dark:hover:text-orange-500"
               >
                 <FaInstagram size={24} />
@@ -509,6 +512,7 @@ function Header() {
               <a
                 href="https://www.youtube.com/@Future_Quest"
                 aria-label="YouTube"
+                target="_blank"
                 className="text-gray-600 dark:text-white hover:text-orange-500 dark:hover:text-orange-500"
               >
                 <FaYoutube size={24} />
