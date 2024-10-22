@@ -29,7 +29,7 @@ const OfferDetails = () => {
   }, [id]);
 
   return (
-    <div className="bg-gray-100 dark:bg-slate-900 py-8 px-4 sm:px-6 lg:px-8 h-screen">
+    <div className="bg-gray-100 dark:bg-slate-900 py-8 px-4 sm:px-6 lg:px-8 min-h-screen">
       {OfferDetails ? (
         <div className="max-w-4xl mx-auto bg-white dark:bg-slate-700 rounded-lg shadow-lg p-6 relative">
           <div className="mb-6">
