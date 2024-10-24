@@ -1,142 +1,70 @@
-# Application Form API Documentation
+# Getting Started with Create React App
 
-## HTTP Methods
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### 1. GET
-Retrieve a list of application forms or a specific application form.
+## Available Scripts
 
-**Request:**
-- **URL:** `api/applications/`
-- **Method:** GET
-- **Headers:**
-  - `Authorization: Token <your_token>`
+In the project directory, you can run:
 
-**Description:**
-Fetches all application forms associated with the authenticated user.
+### `npm start`
 
-**Request for a specific application:**
-- **URL:** `api/applications/<id>/`
-- **Method:** GET
-- **Headers:**
-  - `Authorization: Token <your_token>`
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-**Description:**
-Fetches a specific application form by its ID.
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-### 2. POST
-Create a new application form.
+### `npm test`
 
-**Request:**
-- **URL:** `api/applications/`
-- **Method:** POST
-- **Headers:**
-  - `Authorization: Token <your_token>`
-  - `Content-Type: application/json`
-- **Body:**
-  ```json
-  {
-    "offer": <offer_id>,
-    "personal_info": {...},
-    "contact_info": {...},
-    "educational_background": {...},
-    "recommenders": {...},
-    "personal_statements": {...},
-    "documents": {...}
-  }
-  ```
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-**Description:**
-Creates a new application form with the provided data.
+### `npm run build`
 
-### 3. PUT
-Update an existing application form.
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-**Request:**
-- **URL:** `api/applications/<id>/`
-- **Method:** PUT
-- **Headers:**
-  - `Authorization: Token <your_token>`
-  - `Content-Type: application/json`
-- **Body:**
-  ```json
-  {
-    "offer": <offer_id>,
-    "personal_info": {...},
-    "contact_info": {...},
-    "educational_background": {...},
-    "recommenders": {...},
-    "personal_statements": {...},
-    "documents": {...}
-  }
-  ```
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-**Description:**
-Updates an existing application form with the provided data.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### 4. DELETE
-Delete an existing application form.
+### `npm run eject`
 
-**Request:**
-- **URL:** `api/applications/<id>/`
-- **Method:** DELETE
-- **Headers:**
-  - `Authorization: Token <your_token>`
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-**Description:**
-Deletes an existing application form by its ID.
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-## Filtered Queries
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You can filter the list of application forms based on certain criteria. For example, to filter applications by a specific offer:
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-**Request:**
-- **URL:** `api/applications/?offer=<offer_id>`
-- **Method:** GET
-- **Headers:**
-  - `Authorization: Token <your_token>`
+## Learn More
 
-**Description:**
-Fetches application forms filtered by the specified offer ID.
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-You can also combine multiple filters. For example, to filter applications by offer and personal information:
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-**Request:**
-- **URL:** `api/applications/?offer=<offer_id>&personal_info=<personal_info_id>`
-- **Method:** GET
-- **Headers:**
-  - `Authorization: Token <your_token>`
+### Code Splitting
 
-**Description:**
-Fetches application forms filtered by the specified offer ID and personal information ID.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-## New Functionality
+### Analyzing the Bundle Size
 
-### 5. GET (Staff Only)
-Retrieve a list of application forms, with the ability to filter by user ID.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-**Request:**
-- **URL:** `api/get_applications/`
-- **Method:** GET
-- **Headers:**
-  - `Authorization: Token <your_token>`
+### Making a Progressive Web App
 
-**Description:**
-Fetches all application forms. If the authenticated user is a superuser, they can filter by user ID using the `user` query parameter. Regular users can only see their own applications.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-**Example Request:**
-- **URL:** `api/get_applications/?user=<user_id>`
-- **Method:** GET
-- **Headers:**
-  - `Authorization: Token <your_token>`
+### Advanced Configuration
 
-**Description:**
-Fetches application forms filtered by the specified user ID. Only accessible by staff members.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Summary (Updated)
-- **GET** `api/applications/` - Retrieve all application forms.
-- **GET** `api/applications/<id>/` - Retrieve a specific application form.
-- **POST** `api/applications/` - Create a new application form.
-- **PUT** `api/applications/<id>/` - Update an existing application form.
-- **DELETE** `api/applications/<id>/` - Delete an existing application form.
-- **Filtered Queries** - Use query parameters to filter the list of application forms.
-- **GET (Staff Only)** `api/get_applications/` - Retrieve all application forms, with the ability to filter by user ID.
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

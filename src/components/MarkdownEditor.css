@@ -1,0 +1,49 @@
+.markdown-editor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.markdown-input {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+}
+
+.markdown-preview {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.markdown-preview h1 {
+    font-size: 2em;
+}
+
+.markdown-preview h2 {
+    font-size: 1.75em;
+}
+
+.markdown-preview h3 {
+    font-size: 1.5em;
+}
+
+.markdown-preview h4 {
+    font-size: 1.25em;
+}
+
+.markdown-preview h5 {
+    font-size: 1em;
+}
+
+.markdown-preview h6 {
+    font-size: 0.875em;
+}
