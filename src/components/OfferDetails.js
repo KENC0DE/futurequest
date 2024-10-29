@@ -43,7 +43,7 @@ const OfferDetails = () => {
             <h5 className="text-lg font-semibold text-gray-700 dark:text-white mb-1">
               Description
             </h5>
-            <div className="text-gray-600 dark:text-white">
+            <div className="text-gray-600 dark:text-white markdown-preview">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {OfferDetails.description}
               </ReactMarkdown>
