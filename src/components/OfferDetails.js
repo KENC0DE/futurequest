@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getOfferDetails } from "../api";
 import { Link } from "react-router-dom";
@@ -36,14 +36,14 @@ const OfferDetails = () => {
         <div className="max-w-4xl mx-auto bg-white dark:bg-slate-700 rounded-lg shadow-lg p-6 relative">
           <div className="mb-6">
             <h4 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
-              Title: {OfferDetails.title}
+              {OfferDetails.title}
             </h4>
           </div>
           <div className="mb-6">
             <h5 className="text-lg font-semibold text-gray-700 dark:text-white mb-1">
               Description
             </h5>
-            <div className="text-gray-600 dark:text-white markdown-preview">
+            <div className="markdown-preview">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {OfferDetails.description}
               </ReactMarkdown>
