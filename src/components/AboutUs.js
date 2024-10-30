@@ -25,7 +25,7 @@ export default function AboutUs() {
           <div className="mx-auto max-w-2xl">
             <div className="text-center">
               <h1 className="text-balance text-4xl font-bold tracking-tight text-orange-600 sm:text-6xl">
-                About US
+                About Us
               </h1>
             </div>
             <div className="mx-auto max-w-4xl py-12 px-4 sm:px-6 lg:px-8">
