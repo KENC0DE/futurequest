@@ -1,7 +1,11 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .customs.offers import Offers
-from .customs.applications import ApplicationForm, PersonalInformation, ContactInformation, EducationalBackground, Recommenders, PersonalStatements, Documents
+from .customs.applications import (
+    ApplicationForm, PersonalInformation,
+    ContactInformation, EducationalBackground,
+    Recommenders, PersonalStatements, Documents
+)
 
 
 class UserSerializer(serializers.ModelSerializer):
